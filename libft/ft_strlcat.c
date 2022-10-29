@@ -3,54 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 15:22:18 by marvin            #+#    #+#             */
-/*   Updated: 2022/10/11 15:22:18 by marvin           ###   ########.fr       */
+/*   Created: 2022/10/25 17:25:45 by mvicente          #+#    #+#             */
+/*   Updated: 2022/10/25 17:25:45 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
+#include <string.h>
 
-int	count(char *list)
+char	*ft_strcpy(char *dest, char *src)
 {
 	int	i;
 
 	i = 0;
-	while (list[i])
+	while (src[i])
+	{
+		dest[i] = src[i];
 		i++;
-	return (i);
+	}
+	dest[i] = '\0';
+	return (dest);
 }
 
-unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
+size_t	ft_strlcat(char *dest, char *src, size_t size)
 {
-	unsigned int	i;
-	unsigned int	g;
-	unsigned int	j;
+	size_t	tdest;
+	size_t	tsrc;
+	size_t	g;
 
-	i = count(dest);
-	if (size == 0 || size <= i)
-	{
-		return (size + i);
-	}
-	j = i;
+	tdest = ft_strlen(dest);
+	tsrc = ft_strlen(src);
+	if (size <= tdest || size == 0)
+		return (size + tsrc);
 	g = 0;
-	while (src[g] && g < size - j - 1)
+	while (src[g] && g < size - tdest - 1)
 	{
-		dest[i + g] = src[g];
+		dest[tdest + g] = src[g];
 		g++;
 	}
-	dest[i + g] = '\0';
-	return (i + g);
-}
-
-int	main(void)
-{
-	char a[9] = "hello";
-	char b[] = "world";
-	unsigned int	i;
-	i = ft_strlcat(a, b, 3);
-	printf("%i", i);
-	return (0);
+	dest[tdest + g] = '\0';
+	return (tdest + tsrc);
 }

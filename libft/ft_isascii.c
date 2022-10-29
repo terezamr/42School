@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   isalpha.c                                          :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 14:16:23 by marvin            #+#    #+#             */
-/*   Updated: 2022/10/11 14:16:23 by marvin           ###   ########.fr       */
+/*   Created: 2022/10/25 10:55:25 by mvicente          #+#    #+#             */
+/*   Updated: 2022/10/25 10:55:25 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
 
-int ft_isascii(int let)
+int	ft_isascii(int let)
 {
-    if (let >= 0 && let <= 127)
-        return 1; 
-    else
-        return 0;
+	if (let >= 0 && let <= 127)
+		return (1);
+	else
+		return (0);
 }

@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   isalpha.c                                          :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 14:16:23 by marvin            #+#    #+#             */
-/*   Updated: 2022/10/11 14:16:23 by marvin           ###   ########.fr       */
+/*   Created: 2022/10/25 17:25:34 by mvicente          #+#    #+#             */
+/*   Updated: 2022/10/25 17:25:34 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
 
-int ft_toupper(int c)
+int	ft_toupper(int c)
 {
-    if (c >= 97 && c <= 122)
-        c = c - 32;
-    return c;
-}
-
-int main()
-{
-    printf("%c\n", ft_toupper('a'));
-    return 0;
+	if (c >= 97 && c <= 122)
+		c = c - 32;
+	return (c);
 }

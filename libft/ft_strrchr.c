@@ -1,41 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   isalpha.c                                          :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 14:16:23 by marvin            #+#    #+#             */
-/*   Updated: 2022/10/11 14:16:23 by marvin           ###   ########.fr       */
+/*   Created: 2022/10/25 17:24:51 by mvicente          #+#    #+#             */
+/*   Updated: 2022/10/25 17:24:51 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
 
-char *ft_strrchr(const char *string, int c)
+char	*ft_strrchr(const char *string, int c)
 {
-    int b;
-    b = ft_strlen(string);
-    if (c == '\0' && string[b] == '\0')
-		return ((char *)string + b);
-    b = b - 1;
-    while (b != 0)
-    {
-        if (string[b] == c)
-            return ((char *)string + b);
-        b = b - 1;
-    }
-    return (NULL);
-}
+	int	b;
 
-int main()
-{
-    char buffer1[40] = "computer program";
-  char * ptr;
-  int    ch = 'p';
- 
-  ptr = ft_strrchr( buffer1, ch );
-  printf( "The last occurrence of %c in '%s' is '%s'\n",
-            ch, buffer1, ptr );
+	b = ft_strlen(string);
+	if (c == '\0' && string[b] == '\0')
+		return ((char *)string + b);
+	if (!string)
+		return (0);
+	b--;
+	while (b >= 0)
+	{
+		if (string[b] == c)
+			return ((char *)string + b);
+		b--;
+	}
+	return (0);
 }

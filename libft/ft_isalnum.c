@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   isalpha.c                                          :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 14:16:23 by marvin            #+#    #+#             */
-/*   Updated: 2022/10/11 14:16:23 by marvin           ###   ########.fr       */
+/*   Created: 2022/10/25 10:55:10 by mvicente          #+#    #+#             */
+/*   Updated: 2022/10/25 10:55:10 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
 
-int ft_isalnum(int num)
+int	ft_isalnum(int num)
 {
-    if (ft_isdigit(num) || ft_isalpha(num))
-        return 1;
-    else
-        return 0;
-}   
+	if (ft_isdigit(num) || ft_isalpha(num))
+		return (1);
+	else
+		return (0);
+}

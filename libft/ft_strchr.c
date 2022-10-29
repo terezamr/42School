@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   isalpha.c                                          :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 14:16:23 by marvin            #+#    #+#             */
-/*   Updated: 2022/10/11 14:16:23 by marvin           ###   ########.fr       */
+/*   Created: 2022/10/25 17:24:58 by mvicente          #+#    #+#             */
+/*   Updated: 2022/10/25 17:24:58 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
 
-char *ft_strchr(const char *string, int c)
+char	*ft_strchr(const char *string, int c)
 {
-    int a;
-    a = 0;
-    while (string)
-    {
-        if (string[a] == c)
-            return ((char *)string + a);
-        a = a + 1;
-    }
-    if (c == '\0' && string[a] == '\0')
-		return ((char *)string + a);
-    return (NULL);
-}
+	int	a;
 
-int main()
-{
-    char buffer1[40] = "computer program";
-  char * ptr;
-  int    ch = 'p';
- 
-  ptr = ft_strchr( buffer1, ch );
-  printf( "The first occurrence of %c in '%s' is '%s'\n",
-            ch, buffer1, ptr );
+	a = 0;
+	while (string[a] != '\0')
+	{
+		if (string[a] == c)
+			return ((char *)string + a);
+		a = a + 1;
+	}
+	if (c == '\0' && string[a] == '\0')
+		return ((char *)string + a);
+	return (0);
 }

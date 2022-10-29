@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lib1.c                                             :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/02 13:34:42 by marvin            #+#    #+#             */
-/*   Updated: 2022/10/02 13:34:42 by marvin           ###   ########.fr       */
+/*   Created: 2022/10/25 11:38:14 by mvicente          #+#    #+#             */
+/*   Updated: 2022/10/25 11:38:14 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
 
-void *memset(void *ptr, int x, size_t n)
+void	*ft_memset(void *s, int c, size_t n)
 {
-    char *a;
-    a = (char *)ptr;
-    while (n != 0)
-    {
-        a[n - 1] = x;
-        n = n - 1;
-    }
-    return (ptr);
-}
+	char	*a;
 
-int main()
-{
-    char str[50] = "GeeksForGeeks is for programming geeks.";
-    printf("\nBefore memset(): %s\n", str);
-  
-    // Fill 8 characters starting from str[13] with '.'
-    memset(str + 13, '.', 8*sizeof(char));
-  
-    printf("After memset():  %s", str);
-    return 0;
+	a = (char *)s;
+	while (n != 0)
+	{
+		a[n - 1] = c;
+		n--;
+	}
+	return (s);
 }
