@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/29 13:34:26 by mvicente          #+#    #+#             */
-/*   Updated: 2022/10/31 14:12:01 by mvicente         ###   ########.fr       */
+/*   Created: 2022/10/31 14:57:40 by mvicente          #+#    #+#             */
+/*   Updated: 2022/10/31 14:57:42 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strcpy(char *dest, char *src)
 {
-	char	*ptr;
-	int		i;
-	int		f;
+	int	i;
 
 	i = 0;
-	if (!s1 || !set)
-		return (NULL);
-	f = ft_strlen(s1);
-	while (s1[i] && ft_strchr(set, s1[i]))
+	while (src[i])
+	{
+		dest[i] = src[i];
 		i++;
-	if (i == f)
-		i = 0;
-	while (f != 0 && ft_strchr(set, s1[f - 1]))
-		f--;
-	ptr = ft_substr(s1, i, f - i);
-	return (ptr);
+	}
+	dest[i] = '\0';
+	return (dest);
 }
