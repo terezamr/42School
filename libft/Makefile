@@ -6,7 +6,7 @@
 #    By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/26 12:41:51 by mvicente          #+#    #+#              #
-#    Updated: 2022/10/26 15:16:09 by mvicente         ###   ########.fr        #
+#    Updated: 2022/11/05 15:17:11 by mvicente         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,10 @@ SRC = $(wildcard *.c)
 
 OBJ = $(SRC:.c=.o)
 
-#B = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c\
-#ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
+B = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c\
+ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
 
-#B = $(wildcard *.c)
+B = $(wildcard *.c)
 
 B_OBJ = $(B:.c=.o)
 

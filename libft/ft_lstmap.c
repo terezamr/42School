@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/29 13:07:12 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/05 13:01:18 by mvicente         ###   ########.fr       */
+/*   Created: 2022/11/05 19:33:29 by mvicente          #+#    #+#             */
+/*   Updated: 2022/11/05 20:38:31 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	char	*ptr;
-	int		a;
-	int		b;
+	t_list	*newlist;
+	t_list	*a;
 
-	a = 0;
-	b = 0;
-	ptr = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!ptr || !s1 || !s2)
-		return (0);
-	while (s1[a] != '\0')
+	while (lst)
 	{
-		ptr[a] = s1[a];
-		a++;
+		a = ft_lstnew(f(lst->content));
+		if (!a)
+		{
+			ft_lstclear(&newlist, del);
+			return (newlist);
+		}
+		else
+			ft_lstadd_back(&newlist, a);
+		lst = lst->next;
 	}
-	while (s2[b] != '\0')
-	{
-		ptr[a] = s2[b];
-		a++;
-		b++;
-	}
-	ptr[a] = '\0';
-	return (ptr);
+	return (newlist);
 }

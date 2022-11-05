@@ -1,39 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/29 13:07:12 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/05 13:01:18 by mvicente         ###   ########.fr       */
+/*   Created: 2022/11/05 13:04:21 by mvicente          #+#    #+#             */
+/*   Updated: 2022/11/05 15:09:53 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char	*ptr;
-	int		a;
-	int		b;
-
-	a = 0;
-	b = 0;
-	ptr = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!ptr || !s1 || !s2)
-		return (0);
-	while (s1[a] != '\0')
+	if (n == -2147483648)
 	{
-		ptr[a] = s1[a];
-		a++;
+		ft_putchar_fd(43, fd);
+		ft_putchar_fd(50, fd);
+		n = 147483648;
 	}
-	while (s2[b] != '\0')
+	if (n < 0)
 	{
-		ptr[a] = s2[b];
-		a++;
-		b++;
+		n = n * -1;
+		ft_putchar_fd(43, fd);
+		ft_putnbr_fd(n, fd);
 	}
-	ptr[a] = '\0';
-	return (ptr);
+	if (n >= 10)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
+	if (n < 10 && n >= 0)
+		ft_putchar_fd(n + '0', fd);
 }
