@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 11:06:54 by mvicente          #+#    #+#             */
-/*   Updated: 2022/10/28 17:09:01 by mvicente         ###   ########.fr       */
+/*   Updated: 2022/11/06 16:33:23 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	size_t	a;
 
 	count = 0;
-	if (little[count] == '\0' || len == 0)
+	if (little[count] == '\0')
 		return ((char *)big);
+	if (len == 0)
+		return (NULL);
 	while (count < len && little)
 	{
 		a = 0;
