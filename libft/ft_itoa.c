@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:50:55 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/01 18:20:08 by mvicente         ###   ########.fr       */
+/*   Updated: 2022/11/06 18:24:56 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,15 @@ char	*ft_itoa(int n)
 		sig = -1;
 		n = n * -1;
 	}
+	if (n == -2147483648)
+	{
+		ptr = malloc(12);
+		ptr = "-2147483648";
+		return (ptr);
+	}
 	if (!(ptr = malloc(sizeof(char) * (count + 1))))
 		return (NULL);
 	ptr[count--] = '\0';
-	if (n == -2147483648)
-	{
-		ptr[0] = '-';
-		ptr[1] = '2';
-		n = 147483648;
-		a = 2;
-		count = 10;
-	}
 	fill_ptr(ptr, count, a, n, sig);
 	return (ptr);
 }
