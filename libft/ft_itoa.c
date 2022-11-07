@@ -6,36 +6,48 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:50:55 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/06 18:24:56 by mvicente         ###   ########.fr       */
+/*   Updated: 2022/11/07 18:30:26 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	get_count(int aux)
+int	get_count(int n)
 {
 	int	count;
 
 	count = 0;
-	if (aux < 0)
-		aux = aux * -1;
-	while (aux >= 10)
+	if (n == 0)
+		return (1);
+	while (n != 0)
 	{
-		aux = aux / 10;
+		n = n / 10;
 		count++;
 	}
 	return (count);
 }
 
-char	*fill_ptr(char *ptr, int count, int a, int n, int sig)
+char	*fill_ptr(char *ptr, int count, int a, int n)
 {
-	while (count >= a)
+	int	sig;
+
+	sig = 1;
+	if (a == 1)
+		sig = -1;
+	ptr[count] = '\0';
+	count--;
+	while (count >= 0)
 	{
-		ptr[count] = n % 10 + '0';
+		ptr[count] = '0' + (sig * (n % 10));
 		n = n / 10;
 		count--;
 	}
-	if (sig == -1)
+	return (ptr);
+}
+
+char	*check_f(char *ptr, int a)
+{
+	if (a == 1)
 		ptr[0] = '-';
 	return (ptr);
 }
@@ -44,29 +56,19 @@ char	*ft_itoa(int n)
 {
 	char	*ptr;
 	int		count;
-	int		sig;
 	int		a;
 
-	count = 0;
 	a = 0;
-	sig = 0;
-	count = get_count(n) + 1;
+	count = get_count(n);
 	if (n < 0)
 	{
 		count++;
 		a = 1;
-		sig = -1;
-		n = n * -1;
 	}
-	if (n == -2147483648)
-	{
-		ptr = malloc(12);
-		ptr = "-2147483648";
-		return (ptr);
-	}
-	if (!(ptr = malloc(sizeof(char) * (count + 1))))
+	ptr = malloc(sizeof(char) * (count + 1));
+	if (!ptr)
 		return (NULL);
-	ptr[count--] = '\0';
-	fill_ptr(ptr, count, a, n, sig);
+	fill_ptr(ptr, count, a, n);
+	check_f(ptr, a);
 	return (ptr);
 }

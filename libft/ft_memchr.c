@@ -19,9 +19,11 @@ void	*ft_memchr(const void *string, int c, size_t count)
 
 	s = (const char *)string;
 	a = 0;
+	if (count == 0)
+		return (NULL);
 	while (string && count != 0)
 	{
-		if (s[a] == c)
+		if (s[a] == (char)c)
 			return ((char *)string + a);
 		a++;
 		count--;
@@ -30,4 +32,3 @@ void	*ft_memchr(const void *string, int c, size_t count)
 		return ((char *)string + a);
 	return (NULL);
 }
-
