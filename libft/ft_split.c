@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 14:16:24 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/07 17:35:08 by mvicente         ###   ########.fr       */
+/*   Updated: 2022/11/16 16:11:45 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ int	get_num(char const *str, char c)
 
 	nstr = 0;
 	i = 0;
-	while (i < (int)ft_strlen(str))
+	while (str[i])
 	{
 		if (str[i] != c)
 		{
-			while (str[i] != c)
+			while (str[i] != c && str[i])
 				i++;
 			nstr++;
 		}
-		while (str[i] == c)
+		while (str[i] == c && str[i])
 			i++;
 	}
 	return (nstr);
@@ -37,39 +37,27 @@ char	**ft_split(char const *s, char c)
 {
 	char	**ptr;
 	int		count;
-	int		a;
-	int		d;
+	int		len;
 
 	count = 0;
-	a = 0;
-	d = 0;
 	ptr = (char **)malloc((get_num(s, c) + 1) * sizeof(char *));
 	if (!s || !ptr)
 		return (NULL);
-	while (a < (int)ft_strlen(s))
+	while (*s)
 	{
-		while (s[a] != '\0' && s[a] == c)
+		if (*s != c)
 		{
-			a++;
-			d++;
+			len = 0;
+			while (*s && *s != c)
+			{
+				s++;
+				len++;
+			}
+			ptr[count++] = ft_substr(s - len, 0, len);
 		}
-		if (s[a] != '\0' && s[a] != c)
-		{
-			while (s[a] != '\0' && s[a] != c)
-				a++;
-			ptr[count] = ft_substr(s, d, a - d);
-			count++;
-			a++;
-			d = a;
-		}
+		else
+			s++;
 	}
-	ptr[get_num(s, c)] = NULL;
+	ptr[count] = NULL;
 	return (ptr);
 }
-
-// int	main(void)
-// {
-// 	char	**ptr =ft_split("Tripouille", ' ');
-// 	printf("%s\n", ptr[0]);
-// 	printf("%p\n", ptr[1]);
-// }
