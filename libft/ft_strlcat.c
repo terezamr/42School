@@ -12,6 +12,15 @@
 
 #include "libft.h"
 
+/**
+ * It copies the string src to the end of dest.
+ * 
+ * @param dest The destination string.
+ * @param src The string to be appended.
+ * @param size the size of the destination buffer
+ * 
+ * @return The length of the string it tried to create.
+ */
 size_t	ft_strlcat(char *dest, char *src, size_t size)
 {
 	size_t	tdest;
