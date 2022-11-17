@@ -12,6 +12,16 @@
 
 #include "libft.h"
 
+/**
+ * The above function searches for the first occurrence of the character c in the first count
+ * characters of the string pointed to by the argument string.
+ * 
+ * @param string The string to search.
+ * @param c The character to search for.
+ * @param count The number of bytes to be searched.
+ * 
+ * @return A pointer to the first occurrence of the character c in the string s.
+ */
 void	*ft_memchr(const void *string, int c, size_t count)
 {
 	int			a;

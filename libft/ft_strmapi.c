@@ -6,12 +6,22 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 11:59:06 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/16 17:36:31 by mvicente         ###   ########.fr       */
+/*   Updated: 2022/11/17 10:30:25 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * The function ft_strmapi() applies the function f to each character of the string given as argument
+ * by giving its index as first argument to create a “fresh” new string (with malloc(3)) resulting from
+ * the successive applications of f
+ * 
+ * @param s The string to be mapped.
+ * @param f The function to be applied to each character of s and its index.
+ * 
+ * @return A pointer to a new string.
+ */
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
 	unsigned int	a;
