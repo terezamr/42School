@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 16:14:03 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/24 13:05:09 by mvicente         ###   ########.fr       */
+/*   Updated: 2022/11/24 13:51:07 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,13 @@ void	*ft_putnbr_base(unsigned int nbr, char *base, char *sp, int len_nbr)
 int	get_len(unsigned int number)
 {
 	int				count;
-	unsigned int	nb;
 	int				base_len;
 
 	count = 0;
 	base_len = 16;
-	if (number < 0)
+	while (number >= (unsigned)base_len)
 	{
-		nb = number * -1;
-		count++;
-	}
-	else
-		nb = number;
-	while (nb >= (unsigned)base_len)
-	{
-		nb /= base_len;
+		number /= base_len;
 		count++;
 	}
 	count++;

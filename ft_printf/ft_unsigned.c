@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 16:03:48 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/21 14:44:52 by mvicente         ###   ########.fr       */
+/*   Updated: 2022/11/24 13:50:41 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,6 @@ char	*ft_uitoa(unsigned int n)
 
 	a = 1;
 	count = get_count_u(n);
-	if (n < 0)
-	{
-		count++;
-		a = -1;
-	}
 	ptr = malloc(sizeof(char) * (count + 1));
 	if (!ptr)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:14:00 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/24 12:53:00 by mvicente         ###   ########.fr       */
+/*   Updated: 2022/11/24 13:54:28 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 
 void	*ft_putnbr_base_ptr(unsigned long long nbr, char *b, char *sp, int len)
 {
-	if (nbr < 0)
-	{
-		nbr = nbr * -1;
-		sp[0] = '-';
-		len++;
-	}
 	while (nbr >= 16)
 	{
 		sp[len-- - 1] = b[nbr % 16];
@@ -32,21 +26,13 @@ void	*ft_putnbr_base_ptr(unsigned long long nbr, char *b, char *sp, int len)
 int	get_len_ptr(unsigned long long number)
 {
 	int					count;
-	unsigned long long	nb;
 	int					base_len;
 
 	count = 0;
 	base_len = 16;
-	if (number < 0)
+	while (number >= (unsigned)base_len)
 	{
-		nb = number * -1;
-		count++;
-	}
-	else
-		nb = number;
-	while (nb >= (unsigned)base_len)
-	{
-		nb /= base_len;
+		number /= base_len;
 		count++;
 	}
 	count++;

@@ -10,47 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_strn(char *str)
+size_t	ft_strlen(const char *s)
 {
-	int	i;
+	size_t	len;
 
-	i = 0;
-	while (str[i])
-		write(1, &str[i++], 1);
-}
-
-int	ft_putstr(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-	{
-		ft_strn("(null)");
-		return (6);
-	}
-	while (str[i] != '\0')
-		write(1, &str[i++], 1);
-	return (i);
-}
-
-int	ft_putchar(char c)
-{
-	write(1, &c, 1);
-	return (1);
-}
-
-int	ft_putnbr(int number)
-{
-	char	*s;
-	int		i;
-
-	s = ft_itoa(number);
-	i = 0;
-	while (s[i] != '\0')
-		write(1, &s[i++], 1);
-	free(s);
-	return (i);
+	len = 0;
+	while (s[len])
+		len = len + 1;
+	return (len);
 }

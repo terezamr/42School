@@ -6,11 +6,11 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:50:55 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/21 14:43:52 by mvicente         ###   ########.fr       */
+/*   Updated: 2022/11/21 12:07:22 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 int	get_count(int n)
 {
@@ -33,8 +33,9 @@ char	*fill_ptr(char *ptr, int count, int a, int n)
 	count--;
 	while (count >= 0)
 	{
-		ptr[count--] = '0' + (a * (n % 10));
+		ptr[count] = '0' + (a * (n % 10));
 		n = n / 10;
+		count--;
 	}
 	return (ptr);
 }
