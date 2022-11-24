@@ -6,7 +6,7 @@
 #    By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/26 12:41:51 by mvicente          #+#    #+#              #
-#    Updated: 2022/11/24 13:48:09 by mvicente         ###   ########.fr        #
+#    Updated: 2022/11/24 13:58:42 by mvicente         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 RM = rm -f
 
-SRC = ft_printf.c ft_aux.c ft_hex.c ft_unsigned.c ft_strchr.c \
-		ft_ptr.c		
+SRC = ft_printf.c ft_aux.c ft_hex.c ft_unsigned.c ft_ptr.c		
 
 OBJ = $(SRC:.c=.o)
 
