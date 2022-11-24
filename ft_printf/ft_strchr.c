@@ -21,11 +21,9 @@ char	*ft_strchr(const char *string, int c)
 	{
 		if (string[a] == (char)c)
 			return ((char *)string + a);
-		a = a + 1;
+		a++;
 	}
 	if ((char)c == '\0')
-	{
 		return ((char *)string + a);
-	}		
 	return (0);
 }

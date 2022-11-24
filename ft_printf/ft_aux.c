@@ -28,10 +28,7 @@ void	ft_strn(char *str)
 
 	i = 0;
 	while (str[i])
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
+		write(1, &str[i++], 1);
 }
 
 int	ft_putstr(char *str)
@@ -45,10 +42,7 @@ int	ft_putstr(char *str)
 		return (6);
 	}
 	while (str[i] != '\0')
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
+		write(1, &str[i++], 1);
 	return (i);
 }
 
@@ -56,4 +50,17 @@ int	ft_putchar(char c)
 {
 	write(1, &c, 1);
 	return (1);
+}
+
+int	ft_putnbr(int number)
+{
+	char	*s;
+	int		i;
+
+	s = ft_itoa(number);
+	i = 0;
+	while (s[i] != '\0')
+		write(1, &s[i++], 1);
+	free(s);
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 13:53:40 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/20 17:59:49 by mvicente         ###   ########.fr       */
+/*   Updated: 2022/11/21 13:15:34 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@
 # include <string.h>
 # include <stdarg.h>
 
-// typedef struct s_format
-// {
-// 	int	len;
-// }		t_format;
+# define BASEH_U "0123456789ABCDEF"
+# define BASEH_L "0123456789abcdef"
 
 int		ft_printf(const char *format, ...);
 size_t	ft_strlen(const char *s);
@@ -32,6 +30,7 @@ int		ft_putstr(char *str);
 int		ft_putchar(char c);
 int		get_count(int n);
 char	*ft_itoa(int n);
-int		ft_hex(unsigned long nbr, char *base);
+int		ft_hex(unsigned int nbr, char *base);
+int		ft_ptr(unsigned long long nbr, char *base);
 
 #endif
