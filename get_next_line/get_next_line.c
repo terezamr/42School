@@ -6,116 +6,100 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:17:36 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/23 21:12:46 by mvicente         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:53:54 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	check_n(const char *string)
+int	check_s(char **temp, char **new_temp)
 {
-	int	a;
+	int		count;
 
-	a = 0;
-	if (string == 0)
-		return (-1);
-	while (string[a] != '\0')
+	count = 0;
+	new_temp = NULL;
+	if (temp != (void *)0)
+		count = (int)ft_strlen(*temp);
+	if (!new_temp)
+		free(new_temp);
+	return (count);
+}
+
+void	fill_buffer(char *buffer, int len)
+{
+	int		i;
+
+	i = 0;
+	while (buffer[i])
 	{
-		if (string[a] == '\n')
-			return (a);
-		a++;
+		if (i < BUFFER_SIZE - len - 1)
+			buffer[i] = buffer[i + len + 1];
+		else
+			buffer[i] = '\0';
+		i++;
 	}
-	return (-1);
+}
+
+char	*new_join(char *temp, char *buffer, int len)
+{
+	char	*new_temp;
+	int		i;
+	int		d;
+	int		count;
+
+	d = 0;
+	if (!temp)
+		temp = ft_calloc(1, 1);
+	count = check_s(&temp, &new_temp);
+	new_temp = malloc(count + len + 1);
+	if (!new_temp)
+		return (NULL);
+	i = -1;
+	while (temp[++i] != 0)
+		new_temp[i] = temp[i];
+	while (d < len)
+		new_temp[i++] = buffer[d++];
+	new_temp[i] = '\0';
+	len--;
+	fill_buffer(buffer, len);
+	free(temp);
+	return (new_temp);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*buffer;
-	char		*temp;
-	static char	*nextl;
-	size_t		len;
 	int			r;
-	int			c;
-	char		*aux;
+	int			flag;
+	int			len;
+	char		*temp;
+	static char	buffer[BUFFER_SIZE];
 
+	flag = 0;
+	temp = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (0);
-	temp = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!temp)
-		return (NULL);
-	if (!nextl)
 	{
-		nextl = ft_calloc(sizeof(char), 2);
-		nextl[0] = '\0';
+		buffer[0] = 0;
+		return (0);
+	}
+	if (buffer[0])
+	{
+		len = check_n(buffer, &flag);
+		temp = new_join(temp, buffer, len + 1);
+		if (flag == 1)
+			return (temp);
 	}
 	while (1)
 	{
-		c = check_n(nextl);
-		if (c >= 0)
+		if (buffer[0] == 0)
 		{
-			aux = temp;
-			temp = ft_substr(nextl, 0, c + 1);
-			free(aux);
-			aux = nextl;
-			nextl = ft_substr(nextl + c + 1, 0, BUFFER_SIZE);
-			if (nextl[0] == '\0')
-			{
-				free(nextl);
-				nextl = NULL;
-			}
-			free(aux);
-			buffer = NULL;
-			return (temp);
+			r = read(fd, buffer, BUFFER_SIZE);
+			if (r == 0 && !buffer[0])
+				return (temp);
 		}
-		printf("check");
-		buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
-		if (!buffer)
-			return (NULL);
-		r = read(fd, buffer, BUFFER_SIZE);
-		printf("buffer %s\n", buffer);
-		len = check_n(buffer) + 1;
-		if (len >= 1 && len != ft_strlen(buffer) + 1)
-		{
-			printf("check");
-			aux = temp;
-			temp = ft_strjoin(nextl, ft_substr(buffer, 0, len));
-			free(aux);
-			nextl = ft_substr(buffer + len, 0, BUFFER_SIZE);
-			if (nextl[0] == '\0')
-			{
-				free(nextl);
-				nextl = NULL;
-			}
-			free(buffer);
-			buffer = NULL;
-			return (temp);
-		}
-		else if (len == ft_strlen(buffer) + 1)
-		{
-			printf("check");
-			nextl = ft_strjoin(nextl, buffer);
-			free(buffer);
-			buffer = NULL;
-		}
-		if (!r)
-		{
-			printf("check");
-			free(buffer);
-			free(temp);
-			free(nextl);
-			nextl = NULL;
-			return (NULL);
-		}
+		len = check_n(buffer, &flag);
+		temp = new_join(temp, buffer, len + 1);
+		if (flag == 1 || (r == 0 && check_n(buffer, &flag) == -1))
+			break ;
 	}
-	return (NULL);
+	return (temp);
 }
-
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*a;
-
-// 	fd = open("./a.txt", O_RDONLY);
-// 	printf("gnl 1 %s.\n", a = get_next_line(fd));
-// 	free(a);
-// }

@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 16:14:03 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/24 13:51:07 by mvicente         ###   ########.fr       */
+/*   Updated: 2022/11/24 14:07:19 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,13 @@
 
 void	*ft_putnbr_base(unsigned int nbr, char *base, char *sp, int len_nbr)
 {
-	long int		number;
-
-	number = (long int) nbr;
-	if (number < 0)
+	while (nbr >= 16)
 	{
-		number = number * -1;
-		sp[0] = '-';
-		len_nbr++;
-	}
-	while (number >= 16)
-	{
-		sp[len_nbr - 1] = base[number % 16];
-		number = number / 16;
+		sp[len_nbr - 1] = base[nbr % 16];
+		nbr = nbr / 16;
 		len_nbr--;
 	}
-	sp[len_nbr - 1] = base[number];
+	sp[len_nbr - 1] = base[nbr];
 	return (0);
 }
 

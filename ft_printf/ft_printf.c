@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 14:06:13 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/24 13:38:28 by mvicente         ###   ########.fr       */
+/*   Updated: 2022/11/24 15:00:49 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int	ft_printf(const char *str, ...)
 	return (len);
 }
 
-// int main()
-// {
-// 	ft_printf("%x\n", -10);
-// 	printf("%x", -10);
-// }
+int main()
+{
+	ft_printf("%x\n", -10);
+	printf("%x", -10);
+}
