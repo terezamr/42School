@@ -1,69 +1,60 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_comments.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 15:17:36 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/28 18:06:52 by mvicente         ###   ########.fr       */
+/*   Created: 2022/11/21 18:23:48 by mvicente          #+#    #+#             */
+/*   Updated: 2022/11/28 17:43:06 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	check_s(char **temp, char **new_temp)
+size_t	ft_strlen(const char *s)
 {
-	int		count;
+	size_t	len;
 
-	count = 0;
-	new_temp = NULL;
-	if (temp != (void *)0)
-		count = (int)ft_strlen(*temp);
-	if (!new_temp)
-		free(new_temp);
-	return (count);
+	if (!s || s[0] == 0)
+		return (0);
+	len = 0;
+	while (s[len])
+		len++;
+	return (len);
 }
 
-void	fill_buffer(char *buffer, int len)
+int	check_n(char *string, int *flag)
 {
-	int		i;
+	int	a;
+
+	a = -1;
+	while (string[++a] != 0)
+	{
+		if (string[a] == '\n')
+		{
+			*flag = 1;
+			return (a);
+		}
+	}
+	return (a);
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	char		*ptr;
+	size_t		i;
 
 	i = 0;
-	while (buffer[i])
+	ptr = malloc(size * nmemb);
+	if (!ptr)
+		return (NULL);
+	while (i < nmemb * size)
 	{
-		if (i < BUFFER_SIZE - len - 1)
-			buffer[i] = buffer[i + len + 1];
-		else
-			buffer[i] = '\0';
+		ptr[i] = '\0';
 		i++;
 	}
-}
-
-char	*new_join(char *temp, char *buffer, int len)
-{
-	char	*new_temp;
-	int		i;
-	int		d;
-	int		count;
-
-	d = 0;
-	if (!temp)
-		temp = ft_calloc(1, 1);
-	count = check_s(&temp, &new_temp);
-	new_temp = malloc(count + len + 1);
-	if (!new_temp)
-		return (NULL);
-	i = -1;
-	while (temp[++i] != 0)
-		new_temp[i] = temp[i];
-	while (d < len)
-		new_temp[i++] = buffer[d++];
-	new_temp[i] = '\0';
-	len--;
-	fill_buffer(buffer, len);
-	free(temp);
-	return (new_temp);
+	return ((void *)ptr);
 }
 
 char	*get_next_line(int fd)
@@ -104,14 +95,10 @@ char	*get_next_line(int fd)
 	return (temp);
 }
 
-// int	main(void)
-// {
-// 	int	fd1;
-// 	int	fd2;
+int	main(void)
+{
+	int	fd;
 
-// 	fd1 = open("./a.txt", O_RDONLY);
-// 	printf("gnl 1 %s.\n", get_next_line(fd1));
-// 	printf("gnl 2 %s.\n", get_next_line(fd1));
-// 	printf("gnl 3 %s.\n", get_next_line(fd1));
-// 	printf("gnl 4 %s.\n", get_next_line(fd1));
-// }
+	fd = open("a.txt", O_RDONLY);
+	printf("%s\n", get_next_line(fd));
+}

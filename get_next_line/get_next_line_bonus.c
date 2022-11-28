@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:17:36 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/28 18:06:52 by mvicente         ###   ########.fr       */
+/*   Updated: 2022/11/28 18:08:30 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	check_s(char **temp, char **new_temp)
 {
@@ -72,33 +72,37 @@ char	*get_next_line(int fd)
 	int			flag;
 	int			len;
 	char		*temp;
-	static char	buffer[BUFFER_SIZE];
+	static char	buffer[4096][BUFFER_SIZE];
 
 	flag = 0;
 	temp = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
-		buffer[0] = 0;
+		buffer[fd][0] = 0;
 		return (0);
 	}
 	if (buffer[0])
 	{
-		len = check_n(buffer, &flag);
-		temp = new_join(temp, buffer, len + 1);
+		len = check_n(buffer[fd], &flag);
+		temp = new_join(temp, buffer[fd], len + 1);
 		if (flag == 1)
 			return (temp);
 	}
 	while (1)
 	{
-		if (buffer[0] == 0)
+		if (buffer[fd][0] == 0)
 		{
-			r = read(fd, buffer, BUFFER_SIZE);
-			if (r == 0 && !buffer[0])
+			r = read(fd, buffer[fd], BUFFER_SIZE);
+			if (r == 0 && !buffer[fd][0])
+			{
+				if (!temp[0])
+					return (NULL);
 				return (temp);
+			}
 		}
-		len = check_n(buffer, &flag);
-		temp = new_join(temp, buffer, len + 1);
-		if (flag == 1 || (r == 0 && check_n(buffer, &flag) == -1))
+		len = check_n(buffer[fd], &flag);
+		temp = new_join(temp, buffer[fd], len + 1);
+		if (flag == 1 || (r == 0 && check_n(buffer[fd], &flag) == -1))
 			break ;
 	}
 	return (temp);
@@ -110,8 +114,8 @@ char	*get_next_line(int fd)
 // 	int	fd2;
 
 // 	fd1 = open("./a.txt", O_RDONLY);
-// 	printf("gnl 1 %s.\n", get_next_line(fd1));
-// 	printf("gnl 2 %s.\n", get_next_line(fd1));
-// 	printf("gnl 3 %s.\n", get_next_line(fd1));
-// 	printf("gnl 4 %s.\n", get_next_line(fd1));
+// 	printf("gnl 1 %s.\n", get_next_line_bonus(fd1));
+// 	printf("gnl 2 %s.\n", get_next_line_bonus(fd1));
+// 	printf("gnl 3 %s.\n", get_next_line_bonus(fd1));
+// 	printf("gnl 4 %s.\n", get_next_line_bonus(fd1));
 // }

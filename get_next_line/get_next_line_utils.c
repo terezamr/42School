@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 18:23:48 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/28 16:45:27 by mvicente         ###   ########.fr       */
+/*   Updated: 2022/11/28 18:05:09 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,3 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	}
 	return ((void *)ptr);
 }
-
