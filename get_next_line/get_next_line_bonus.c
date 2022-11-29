@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:17:36 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/29 12:20:30 by mvicente         ###   ########.fr       */
+/*   Updated: 2022/11/29 16:22:17 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,17 @@ char	*get_next_line(int fd)
 	int			flag;
 	int			len;
 	char		*temp;
-	static char	buffer[4096][BUFFER_SIZE];
+	static char	buffer[FOPEN_MAX][BUFFER_SIZE + 1];
 
 	flag = 0;
 	temp = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= FOPEN_MAX || read(fd, 0, 0) < 0)
 	{
-		buffer[fd][0] = 0;
+		while (fd > 0 && fd <= FOPEN_MAX && flag < BUFFER_SIZE)
+			buffer[fd][flag++] = 0;
 		return (0);
 	}
+	flag = 0;
 	if (buffer[fd])
 	{
 		len = check_n(buffer[fd], &flag);
@@ -111,23 +113,3 @@ char	*get_next_line(int fd)
 	return (temp);
 }
 
-// int	main(void)
-// {
-// 	int		fd1;
-// 	int		fd2;
-// 	char	*a;
-// 	char	*b;
-
-// 	fd1 = open("a.txt", O_RDONLY);
-// 	fd2 = open("b.txt", O_RDONLY);
-// 	printf("fd1 %d\n", fd1);
-// 	printf("fd2 %d\n", fd2);
-// 	printf("gnl 1 %s.\n", b = get_next_line_bonus(fd2));
-// 	free(b);
-// 	printf("gnl 2 %s.\n", a = get_next_line_bonus(fd1));
-// 	free(a);
-// 	printf("gnl 3 %s.\n", b = get_next_line_bonus(fd2));
-// 	free(b);
-// 	printf("gnl 4 %s.\n", a = get_next_line_bonus(fd1));
-// 	free(a);
-// }

@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:17:36 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/28 18:06:52 by mvicente         ###   ########.fr       */
+/*   Updated: 2022/11/29 12:55:25 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*get_next_line(int fd)
 	int			flag;
 	int			len;
 	char		*temp;
-	static char	buffer[BUFFER_SIZE];
+	static char	buffer[BUFFER_SIZE + 1];
 
 	flag = 0;
 	temp = NULL;
