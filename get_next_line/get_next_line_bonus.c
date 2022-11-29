@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:17:36 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/28 18:08:30 by mvicente         ###   ########.fr       */
+/*   Updated: 2022/11/29 12:20:30 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	*get_next_line(int fd)
 		buffer[fd][0] = 0;
 		return (0);
 	}
-	if (buffer[0])
+	if (buffer[fd])
 	{
 		len = check_n(buffer[fd], &flag);
 		temp = new_join(temp, buffer[fd], len + 1);
@@ -96,7 +96,10 @@ char	*get_next_line(int fd)
 			if (r == 0 && !buffer[fd][0])
 			{
 				if (!temp[0])
+				{
+					free(temp);
 					return (NULL);
+				}
 				return (temp);
 			}
 		}
@@ -110,12 +113,21 @@ char	*get_next_line(int fd)
 
 // int	main(void)
 // {
-// 	int	fd1;
-// 	int	fd2;
+// 	int		fd1;
+// 	int		fd2;
+// 	char	*a;
+// 	char	*b;
 
-// 	fd1 = open("./a.txt", O_RDONLY);
-// 	printf("gnl 1 %s.\n", get_next_line_bonus(fd1));
-// 	printf("gnl 2 %s.\n", get_next_line_bonus(fd1));
-// 	printf("gnl 3 %s.\n", get_next_line_bonus(fd1));
-// 	printf("gnl 4 %s.\n", get_next_line_bonus(fd1));
+// 	fd1 = open("a.txt", O_RDONLY);
+// 	fd2 = open("b.txt", O_RDONLY);
+// 	printf("fd1 %d\n", fd1);
+// 	printf("fd2 %d\n", fd2);
+// 	printf("gnl 1 %s.\n", b = get_next_line_bonus(fd2));
+// 	free(b);
+// 	printf("gnl 2 %s.\n", a = get_next_line_bonus(fd1));
+// 	free(a);
+// 	printf("gnl 3 %s.\n", b = get_next_line_bonus(fd2));
+// 	free(b);
+// 	printf("gnl 4 %s.\n", a = get_next_line_bonus(fd1));
+// 	free(a);
 // }
