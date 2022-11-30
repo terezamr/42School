@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 18:23:48 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/28 17:25:00 by mvicente         ###   ########.fr       */
+/*   Updated: 2022/11/30 12:46:14 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,3 +57,12 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return ((void *)ptr);
 }
 
+int	get_count(char **temp)
+{
+	int		count;
+
+	count = 0;
+	if (temp != (void *)0)
+		count = (int)ft_strlen(*temp);
+	return (count);
+}
