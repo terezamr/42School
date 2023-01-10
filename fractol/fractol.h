@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:57:26 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/10 14:51:17 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/10 17:22:14 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,14 @@
 
 # define WINDOW_WIDTH 1400
 # define WINDOW_HEIGHT 1000
-# define MAX_ITER 100
+# define MAX_ITER 30
 # define RED_PIXEL 0xFF0000
-# define GREEN_PIXEL 0xFF00
+# define YELLOW_PIXEL 0xffd700
+# define ORANGE_PIXEL 0xFE5000
+# define VIOLET_PIXEL 0x440099
+# define PINK_PIXEL 0xFF3EB5
+# define BLACK_PIXEL 0x000000
+# define GREEN_PIXEL 0X44D62C
 
 typedef struct s_img
 {
@@ -34,6 +39,7 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
+	float	scale;
 }	t_img;
 
 typedef struct s_data

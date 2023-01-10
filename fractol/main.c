@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:10:12 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/10 14:46:11 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/10 17:30:20 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,17 @@ void	color(int n, int x, int y, t_data *data)
 	index = data->img.addr + (y * data->img.line_len
 			+ x * (data->img.bpp / 8));
 	if (n == MAX_ITER)
+		*(int *)index = BLACK_PIXEL;
+	else if (n > 0 && n < MAX_ITER / 5)
 		*(int *)index = RED_PIXEL;
-	else
+	else if (n > MAX_ITER / 5 && n < MAX_ITER * 2 / 5)
+		*(int *)index = PINK_PIXEL;
+	else if (n > MAX_ITER * 2 / 5 && n < MAX_ITER * 3 / 5)
+		*(int *)index = VIOLET_PIXEL;
+	else if (n > MAX_ITER * 3 / 5 && n < MAX_ITER * 4 / 5)
 		*(int *)index = GREEN_PIXEL;
+	else
+		*(int *)index = YELLOW_PIXEL;
 }
 
 int	mandelbrot(double c1, double c2)
@@ -79,10 +87,10 @@ int	render(t_data *data)
 	while (y < WINDOW_HEIGHT)
 	{
 		x = 0;
-		c2 = -2 * (y / WINDOW_HEIGHT) + 1;
+		c2 = -2 * data->img.scale * (y / WINDOW_HEIGHT) + 1;
 		while (x < WINDOW_WIDTH)
 		{
-			c1 = (x / WINDOW_WIDTH) * 3 - 2;
+			c1 = (x / WINDOW_WIDTH) * 3 * data->img.scale - 2;
 			n = mandelbrot(c1, c2);
 			color(n, x, y, data);
 			x++;
@@ -90,6 +98,18 @@ int	render(t_data *data)
 		y++;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img.mlx_img, 0, 0);
+	return (1);
+}
+
+int	zoom(int button, t_data *data)
+{
+	if (button == 4)
+	{
+		printf("check\n");
+		data->img.scale = 0.5;
+		mlx_clear_window(data->mlx)
+		//render(data);
+	}
 	return (1);
 }
 
@@ -108,10 +128,13 @@ int	main(void)
 			WINDOW_HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);
+	data->img.scale = 1;
 
 	mlx_loop_hook(data->mlx, render, data);
 	mlx_hook(data->win, 2, 1L << 0, deal_key, data);
 	mlx_hook(data->win, 17, 1L << 17, destroy, data);
+	mlx_mouse_hook(data->win, zoom, data);
+
 	mlx_loop(data->mlx);
 
 	mlx_destroy_image(data->mlx, data->img.mlx_img);
