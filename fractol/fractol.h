@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:57:26 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/10 17:22:14 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/10 18:12:35 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,12 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
+	int		set_type;
 	float	scale;
+	int		r_min;
+	int		r_max;
+	int		i_min;
+	int		i_max;
 }	t_img;
 
 typedef struct s_data

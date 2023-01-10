@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:10:12 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/10 17:30:20 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/10 18:24:02 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,39 +101,49 @@ int	render(t_data *data)
 	return (1);
 }
 
-int	zoom(int button, t_data *data)
+// int	zoom(int button, t_data *data)
+// {
+// 	if (button == 4)
+// 	{
+// 		printf("check\n");
+// 		data->img.scale = 0.5;
+// 		mlx_clear_window(data->mlx, data->win);
+// 		render(data);
+// 	}
+// 	return (1);
+// }
+
+void	check_arguments(char **argv, t_data *data)
 {
-	if (button == 4)
-	{
-		printf("check\n");
-		data->img.scale = 0.5;
-		mlx_clear_window(data->mlx)
-		//render(data);
-	}
-	return (1);
+	if (argv[0][0] == '1')
+		data->img.set_type = 1;
+	if (argv[0][0] == '2')
+		data->img.set_type = 2;
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_data	*data;
 
+	if (argc < 2)
+		return (0);
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (0);
 	vars_init(data);
+	data->img.scale = 1;
+	check_arguments(argv, data);
 	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Title");
-
+	data->win = mlx_new_window(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Fract'ol");
 	data->img.mlx_img = mlx_new_image(data->mlx, WINDOW_WIDTH,
 			WINDOW_HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);
-	data->img.scale = 1;
 
 	mlx_loop_hook(data->mlx, render, data);
 	mlx_hook(data->win, 2, 1L << 0, deal_key, data);
 	mlx_hook(data->win, 17, 1L << 17, destroy, data);
-	mlx_mouse_hook(data->win, zoom, data);
+	//mlx_mouse_hook(data->win, zoom, data);
 
 	mlx_loop(data->mlx);
 
