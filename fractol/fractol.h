@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:57:26 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/10 18:12:35 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/11 17:08:47 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define WINDOW_WIDTH 1400
 # define WINDOW_HEIGHT 1000
-# define MAX_ITER 30
+# define MAX_ITER 100
 # define RED_PIXEL 0xFF0000
 # define YELLOW_PIXEL 0xffd700
 # define ORANGE_PIXEL 0xFE5000
@@ -32,6 +32,18 @@
 # define BLACK_PIXEL 0x000000
 # define GREEN_PIXEL 0X44D62C
 
+# define MANDELBROT 1
+# define JULIA 2
+
+# define KEY_UP 65362
+# define KEY_DOWN 65364
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define KEY_PLUS 61
+# define KEY_MINUS 45
+# define MOUSE_UP 4
+# define MOUSE_DOWN 5
+
 typedef struct s_img
 {
 	void	*mlx_img;
@@ -39,12 +51,9 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
-	int		set_type;
 	float	scale;
-	int		r_min;
-	int		r_max;
-	int		i_min;
-	int		i_max;
+	int		offset_r;
+	int		offset_i;
 }	t_img;
 
 typedef struct s_data
@@ -52,6 +61,16 @@ typedef struct s_data
 	void	*mlx;
 	void	*win;
 	t_img	img;
+	int		set_type;
 }	t_data;
+
+int		ft_strcmp(char *s1, char *s2);
+int		handle_key(int key, t_data *data);
+int		handle_mouse(int button, t_data *data);
+void	vars_init(t_data *data);
+int		destroy(int key, t_data *data);
+void	color(int n, int x, int y, t_data *data);
+int		mandelbrot(double c1, double c2);
+int		render(t_data *data);
 
 #endif

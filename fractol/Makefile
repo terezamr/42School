@@ -6,7 +6,7 @@
 #    By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/26 12:41:51 by mvicente          #+#    #+#              #
-#    Updated: 2023/01/09 12:03:18 by mvicente         ###   ########.fr        #
+#    Updated: 2023/01/11 16:00:48 by mvicente         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ MLX_PATH	= minilibx-linux/
 MLX_NAME	= libmlx.a
 MLX			= $(MLX_PATH)$(MLX_NAME)
 
-SRC = main.c	
+SRC = main.c aux.c fractals.c window.c
 OBJ = $(SRC:.c=.o)
 LDLIBS = -g -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm
 
