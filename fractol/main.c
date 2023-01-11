@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:10:12 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/11 17:07:03 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/11 19:03:32 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	get_fractal(t_data *data, double c1, double c2)
 	n = 0;
 	if (data->set_type == MANDELBROT)
 		n = mandelbrot(c1, c2);
+	if (data->set_type == JULIA)
+		n = julia(c1, c2, 0.26, -0.002);
 	return (n);
 }
 
@@ -55,7 +57,11 @@ void	check_arguments(char **argv, t_data *data)
 	if (!ft_strcmp(argv[1], "mandelbrot") || !ft_strcmp(argv[1], "1"))
 		data->set_type = MANDELBROT;
 	if (!ft_strcmp(argv[1], "julia") || !ft_strcmp(argv[1], "2"))
+	{
 		data->set_type = JULIA;
+		data->julia_r = ft_atoi(argv[2]);
+		data->julia_i = ft_atoi(argv[3]);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -78,8 +84,8 @@ int	main(int argc, char **argv)
 			&data->img.line_len, &data->img.endian);
 	mlx_loop_hook(data->mlx, render, data);
 	mlx_key_hook(data->win, handle_key, data);
-	mlx_hook(data->win, 17, 1L << 17, destroy, data);
 	mlx_mouse_hook(data->win, handle_mouse, data);
+	mlx_hook(data->win, 17, 1L << 17, destroy, data);
 	mlx_loop(data->mlx);
 //	mlx_destroy_image(data->mlx, data->img.mlx_img);
 //	mlx_destroy_display(data->mlx);

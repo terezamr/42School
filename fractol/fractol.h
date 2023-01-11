@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:57:26 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/11 17:08:47 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/11 19:03:02 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define WINDOW_WIDTH 1400
 # define WINDOW_HEIGHT 1000
-# define MAX_ITER 100
+# define MAX_ITER 50
 # define RED_PIXEL 0xFF0000
 # define YELLOW_PIXEL 0xffd700
 # define ORANGE_PIXEL 0xFE5000
@@ -31,6 +31,8 @@
 # define PINK_PIXEL 0xFF3EB5
 # define BLACK_PIXEL 0x000000
 # define GREEN_PIXEL 0X44D62C
+
+# define GREEN1 7074240
 
 # define MANDELBROT 1
 # define JULIA 2
@@ -52,8 +54,8 @@ typedef struct s_img
 	int		line_len;
 	int		endian;
 	float	scale;
-	int		offset_r;
-	int		offset_i;
+	float	offset_r;
+	float	offset_i;
 }	t_img;
 
 typedef struct s_data
@@ -62,15 +64,19 @@ typedef struct s_data
 	void	*win;
 	t_img	img;
 	int		set_type;
+	float	julia_r;
+	float	julia_i;
 }	t_data;
 
 int		ft_strcmp(char *s1, char *s2);
+int		ft_atoi(const char *nptr);
 int		handle_key(int key, t_data *data);
-int		handle_mouse(int button, t_data *data);
+int		handle_mouse(int button, int x, int y, t_data *data);
 void	vars_init(t_data *data);
 int		destroy(int key, t_data *data);
 void	color(int n, int x, int y, t_data *data);
 int		mandelbrot(double c1, double c2);
+int		julia(double z1, double z2, double c1, double c2);
 int		render(t_data *data);
 
 #endif
