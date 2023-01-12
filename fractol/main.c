@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:10:12 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/12 14:42:47 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/12 16:26:46 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	get_fractal(t_data *data, double c1, double c2)
 
 	n = 0;
 	if (data->set_type == MANDELBROT)
-		n = mandelbrot(c1, c2);
+		n = mandelbrot(data, c1, c2);
 	if (data->set_type == JULIA)
-		n = julia(c1, c2, data->julia_r, data->julia_i);
+		n = julia(data, c1, c2, data->julia_r, data->julia_i);
 	return (n);
 }
 
@@ -37,10 +37,11 @@ int	render(t_data *data)
 	while (y < WINDOW_HEIGHT)
 	{
 		x = 0;
-		c2 = (-4  * data->img.scale * (y / WINDOW_HEIGHT) + data->img.offset_i);
+		c2 = (-4 * data->img.scale * (y / WINDOW_HEIGHT) + data->img.offset_i);
 		while (x < WINDOW_WIDTH)
 		{
-			c1 = (4 * data->img.scale * (x / WINDOW_WIDTH) + data->img.offset_r);
+			c1 = (4 * data->img.scale * (x / WINDOW_WIDTH)
+					+ data->img.offset_r);
 			n = get_fractal(data, c1, c2);
 			color(n, x, y, data);
 			x++;

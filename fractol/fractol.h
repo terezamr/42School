@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:57:26 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/12 14:58:09 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/12 16:27:29 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 
 # define WINDOW_WIDTH 1400
 # define WINDOW_HEIGHT 1000
-# define MAX_ITER 100
 # define RED_PIXEL 0xFF0000
 # define YELLOW_PIXEL 0xffd700
 # define ORANGE_PIXEL 0xFE5000
@@ -45,6 +44,8 @@
 # define KEY_MINUS 45
 # define MOUSE_UP 4
 # define MOUSE_DOWN 5
+# define INC_IT 65365
+# define DEC_IT 65366
 
 typedef struct s_img
 {
@@ -61,6 +62,7 @@ typedef struct s_img
 
 typedef struct s_data
 {
+	int		max_iter;
 	void	*mlx;
 	void	*win;
 	t_img	img;
@@ -76,8 +78,8 @@ int		handle_mouse(int button, int x, int y, t_data *data);
 void	vars_init(t_data *data);
 int		destroy(int key, t_data *data);
 void	color(int n, int x, int y, t_data *data);
-int		mandelbrot(double c1, double c2);
-int		julia(double z1, double z2, double c1, double c2);
+int		mandelbrot(t_data *data, double c1, double c2);
+int		julia(t_data *data, double z1, double z2, double c1, double c2);
 int		render(t_data *data);
 
 #endif
