@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:12:45 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/11 19:02:51 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/12 12:08:57 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,46 @@ int	ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
-int	ft_atoi(const char *nptr)
-{
-	int	ini;
-	int	number;
-	int	sig;
+int	decimal_times(const char *nptr, int decimal, int *i)
+{	
+	int	a;
 
-	ini = 0;
+	a = *i;
+	a++;
+	while (nptr[a] == 48)
+	{
+		decimal = decimal * 10;
+		a++;
+	}
+	i = &a;
+	return (decimal);
+}
+
+float	ft_atoi(const char *nptr)
+{
+	int		i;
+	float	number;
+	int		sig;
+	int		decimal;
+
+	i = 0;
 	number = 0;
 	sig = 1;
-	while ((nptr[ini] >= 9 && nptr[ini] <= 13) || nptr[ini] == 32)
-		ini++;
-	if (nptr[ini] == '-' || nptr[ini] == '+')
+	decimal = 1;
+	if (nptr[i++] == '-')
+		sig = -1;
+	while (nptr[i] == 48)
+		i++;
+	while ((nptr[i] >= 48 && nptr[i] <= 57) || nptr[i] == 46)
 	{
-		if (nptr[ini] == '-')
-			sig = -1;
-		ini++;
+		if (nptr[i] == 46)
+			decimal = decimal_times(nptr, decimal, &i);
+		else
+		{
+			number = number * 10 + (nptr[i] - 48);
+			decimal = decimal * 10;
+		}
+		i++;
 	}
-	while (nptr[ini] >= 48 && nptr[ini] <= 57)
-	{
-		number = number * 10 + (nptr[ini] - 48);
-		ini++;
-	}
-	return (sig * number);
+	return (sig * number / decimal);
 }

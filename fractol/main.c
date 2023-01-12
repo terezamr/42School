@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:10:12 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/11 19:03:32 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/12 14:42:47 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	get_fractal(t_data *data, double c1, double c2)
 	if (data->set_type == MANDELBROT)
 		n = mandelbrot(c1, c2);
 	if (data->set_type == JULIA)
-		n = julia(c1, c2, 0.26, -0.002);
+		n = julia(c1, c2, data->julia_r, data->julia_i);
 	return (n);
 }
 
@@ -37,11 +37,10 @@ int	render(t_data *data)
 	while (y < WINDOW_HEIGHT)
 	{
 		x = 0;
-		c2 = (-2 * (y / WINDOW_HEIGHT) + data->img.offset_i) * data->img.scale;
+		c2 = (-4  * data->img.scale * (y / WINDOW_HEIGHT) + data->img.offset_i);
 		while (x < WINDOW_WIDTH)
 		{
-			c1 = (3 * (x / WINDOW_WIDTH) + data->img.offset_r)
-				* data->img.scale;
+			c1 = (4 * data->img.scale * (x / WINDOW_WIDTH) + data->img.offset_r);
 			n = get_fractal(data, c1, c2);
 			color(n, x, y, data);
 			x++;
@@ -52,15 +51,34 @@ int	render(t_data *data)
 	return (1);
 }
 
-void	check_arguments(char **argv, t_data *data)
+int	check_arguments(int argc, char **argv)
+{
+	if (argc < 2 || argc > 4)
+		write(1, "Arguments missing or incorrect!\n", 32);
+	else if ((!ft_strcmp(argv[1], "mandelbrot") || !ft_strcmp(argv[1], "1"))
+		&& argc == 2)
+		return (1);
+	else if (!ft_strcmp(argv[1], "julia") || !ft_strcmp(argv[1], "2"))
+	{
+		if (argc == 4 || argc == 0)
+			return (1);
+		write(1, "Arguments missing or incorrect!\n", 32);
+	}
+	return (0);
+}
+
+void	handle_arguments(int argc, char **argv, t_data *data)
 {
 	if (!ft_strcmp(argv[1], "mandelbrot") || !ft_strcmp(argv[1], "1"))
 		data->set_type = MANDELBROT;
 	if (!ft_strcmp(argv[1], "julia") || !ft_strcmp(argv[1], "2"))
 	{
 		data->set_type = JULIA;
-		data->julia_r = ft_atoi(argv[2]);
-		data->julia_i = ft_atoi(argv[3]);
+		if (argc == 4)
+		{
+			data->julia_r = ft_atoi(argv[2]);
+			data->julia_i = ft_atoi(argv[3]);
+		}
 	}
 }
 
@@ -68,13 +86,13 @@ int	main(int argc, char **argv)
 {
 	t_data	*data;
 
-	if (argc < 2)
+	if (check_arguments(argc, argv) == 0)
 		return (0);
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (0);
 	vars_init(data);
-	check_arguments(argv, data);
+	handle_arguments(argc, argv, data);
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT,
 			"Fract'ol");
