@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:40:05 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/16 13:44:53 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/16 17:07:00 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	change_color(t_data *data)
 {
-	if (data->img.start_pixel == GREY_PIXEL)
+	if (data->img.start_pixel == BLUE_PIXEL)
+	{
+		data->img.end_pixel = VIOLET_PIXEL;
+		data->img.start_pixel = LIME_PIXEL;
+	}
+	else if (data->img.start_pixel == LIME_PIXEL)
 	{
 		data->img.end_pixel = GREEN_PIXEL;
 		data->img.start_pixel = BLUE_PIXEL;
-	}
-	else if (data->img.start_pixel == BLUE_PIXEL)
-	{
-		data->img.end_pixel = PINK_PIXEL;
-		data->img.start_pixel = GREY_PIXEL;
 	}
 }
 
@@ -30,6 +30,20 @@ void	zoom(t_data *data, float move, float scale)
 {
 	data->img.change_move *= move;
 	data->img.scale *= scale;
+}
+
+int	exit_fractol(t_data *data)
+{
+	if (!data)
+		exit(0);
+	if (data->img.mlx_img)
+		mlx_destroy_image(data->mlx, data->img.mlx_img);
+	if (data->win && data->mlx)
+		mlx_destroy_window(data->mlx, data->win);
+	if (data->mlx)
+		mlx_destroy_display(data->mlx);
+	free(data->mlx);
+	exit(0);
 }
 
 int	handle_mouse(int button, int x, int y, t_data *data)
@@ -60,7 +74,7 @@ int	handle_mouse(int button, int x, int y, t_data *data)
 int	handle_key(int key, t_data *data)
 {
 	if (key == 65307)
-		mlx_destroy_window(data->mlx, data->win);
+		exit_fractol(data);
 	else if (key == KEY_LEFT)
 		data->img.offset_r -= 0.2 * data->img.change_move;
 	else if (key == KEY_RIGHT)

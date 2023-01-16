@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:57:26 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/16 13:43:43 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/16 17:06:16 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@
 # define WINDOW_HEIGHT 800
 
 # define BLACK_PIXEL 0x000000
-# define GREY_PIXEL 11568
-# define PINK_PIXEL 13107455
+# define LIME_PIXEL 12105728
+# define VIOLET_PIXEL 12105983
 
-# define GREEN_PIXEL 9568255
-# define BLUE_PIXEL 54527
+# define GREEN_PIXEL 38912
+# define BLUE_PIXEL 39167
 
 # define MANDELBROT 1
 # define JULIA 2
@@ -74,13 +74,14 @@ typedef struct s_data
 int		ft_strcmp(char *s1, char *s2);
 float	ft_atoi(const char *nptr);
 void	error_message(void);
+int		exit_fractol(t_data *data);
 int		handle_key(int key, t_data *data);
 int		handle_mouse(int button, int x, int y, t_data *data);
 void	vars_init(t_data *data);
 int		destroy(int key, t_data *data);
 void	color(int n, int x, int y, t_data *data);
 int		mandelbrot(t_data *data, double c1, double c2);
-int		julia(t_data *data, double z1, double z2, double c1, double c2);
+int		julia(t_data *data, double z1, double z2);
 int		render(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:10:12 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/16 13:28:10 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:18:23 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	get_fractal(t_data *data, double c1, double c2)
 	if (data->set_type == MANDELBROT)
 		n = mandelbrot(data, c1, c2);
 	if (data->set_type == JULIA)
-		n = julia(data, c1, c2, data->julia_r, data->julia_i);
+		n = julia(data, c1, c2);
 	return (n);
 }
 
@@ -66,6 +66,8 @@ int	check_arguments(int argc, char **argv)
 		else
 			error_message();
 	}
+	else
+		error_message();
 	return (0);
 }
 
@@ -73,7 +75,7 @@ void	handle_arguments(int argc, char **argv, t_data *data)
 {
 	if (!ft_strcmp(argv[1], "mandelbrot") || !ft_strcmp(argv[1], "1"))
 		data->set_type = MANDELBROT;
-	if (!ft_strcmp(argv[1], "julia") || !ft_strcmp(argv[1], "2"))
+	else if (!ft_strcmp(argv[1], "julia") || !ft_strcmp(argv[1], "2"))
 	{
 		data->set_type = JULIA;
 		if (argc == 4)
@@ -86,28 +88,22 @@ void	handle_arguments(int argc, char **argv, t_data *data)
 
 int	main(int argc, char **argv)
 {
-	t_data	*data;
+	t_data	data;
 
 	if (check_arguments(argc, argv) == 0)
 		return (0);
-	data = malloc(sizeof(t_data));
-	if (!data)
-		return (0);
-	vars_init(data);
-	handle_arguments(argc, argv, data);
-	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT,
+	vars_init(&data);
+	handle_arguments(argc, argv, &data);
+	data.mlx = mlx_init();
+	data.win = mlx_new_window(data.mlx, WINDOW_WIDTH, WINDOW_HEIGHT,
 			"Fract'ol");
-	data->img.mlx_img = mlx_new_image(data->mlx, WINDOW_WIDTH,
+	data.img.mlx_img = mlx_new_image(data.mlx, WINDOW_WIDTH,
 			WINDOW_HEIGHT);
-	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp,
-			&data->img.line_len, &data->img.endian);
-	mlx_loop_hook(data->mlx, render, data);
-	mlx_key_hook(data->win, handle_key, data);
-	mlx_mouse_hook(data->win, handle_mouse, data);
-	mlx_hook(data->win, 17, 1L << 17, destroy, data);
-	mlx_loop(data->mlx);
-//	mlx_destroy_image(data->mlx, data->img.mlx_img);
-//	mlx_destroy_display(data->mlx);
-//	free(data->mlx);
+	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp,
+			&data.img.line_len, &data.img.endian);
+	mlx_loop_hook(data.mlx, render, &data);
+	mlx_key_hook(data.win, handle_key, &data);
+	mlx_mouse_hook(data.win, handle_mouse, &data);
+	mlx_hook(data.win, 17, 1L << 17, exit_fractol, &data);
+	mlx_loop(data.mlx);
 }

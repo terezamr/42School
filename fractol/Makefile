@@ -6,7 +6,7 @@
 #    By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/26 12:41:51 by mvicente          #+#    #+#              #
-#    Updated: 2023/01/12 12:40:56 by mvicente         ###   ########.fr        #
+#    Updated: 2023/01/16 16:20:46 by mvicente         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ CFLAGS = -Wall -Wextra -Werror
 
 RM = rm -f
 
-# Minilibx
 MLX_PATH	= minilibx-linux/
 MLX_NAME	= libmlx.a
 MLX			= $(MLX_PATH)$(MLX_NAME)
