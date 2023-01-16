@@ -6,30 +6,53 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:40:05 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/12 16:27:55 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/16 13:44:53 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+void	change_color(t_data *data)
+{
+	if (data->img.start_pixel == GREY_PIXEL)
+	{
+		data->img.end_pixel = GREEN_PIXEL;
+		data->img.start_pixel = BLUE_PIXEL;
+	}
+	else if (data->img.start_pixel == BLUE_PIXEL)
+	{
+		data->img.end_pixel = PINK_PIXEL;
+		data->img.start_pixel = GREY_PIXEL;
+	}
+}
+
+void	zoom(t_data *data, float move, float scale)
+{
+	data->img.change_move *= move;
+	data->img.scale *= scale;
+}
+
 int	handle_mouse(int button, int x, int y, t_data *data)
 {
-	if (x && y)
+	float	c1;
+	float	c2;
+
+	c1 = 0;
+	c2 = 0;
+	if (button == MOUSE_UP)
+		zoom(data, 0.75, 0.7);
+	else if (button == MOUSE_DOWN)
+		zoom(data, 1.4, 2);
+	else if (button == 3)
+		change_color(data);
+	else if (button == 1 && data->set_type == JULIA)
 	{
-		if (button == MOUSE_UP)
-		{
-			data->img.change_move *= 0.75;
-			data->img.scale *= 0.7;
-		//	data->img.offset_i += y;
-		//	data->img.offset_i += x;
-		}
-		else if (button == MOUSE_DOWN)
-		{
-			data->img.change_move *= 1.4;
-			data->img.scale *= 2;
-		//	data->img.offset_i += y;
-		//	data->img.offset_i += x;
-		}
+		c2 = (-4 * data->img.scale * ((float)y / WINDOW_HEIGHT)
+				+ data->img.offset_i);
+		c1 = (4 * data->img.scale * ((float)x / WINDOW_WIDTH)
+				+ data->img.offset_r);
+		data->julia_r = c1;
+		data->julia_i = c2;
 	}
 	return (0);
 }
@@ -47,15 +70,9 @@ int	handle_key(int key, t_data *data)
 	else if (key == KEY_DOWN)
 		data->img.offset_i -= 0.2 * data->img.change_move;
 	else if (key == KEY_PLUS)
-	{
-		data->img.change_move *= 0.75;
-		data->img.scale *= 0.7;
-	}
+		zoom(data, 0.75, 0.7);
 	else if (key == KEY_MINUS)
-	{
-		data->img.change_move *= 1.4;
-		data->img.scale *= 2;
-	}
+		zoom(data, 1.4, 2);
 	else if (key == INC_IT)
 		data->max_iter += 1;
 	else if (key == DEC_IT && data->max_iter > 1)

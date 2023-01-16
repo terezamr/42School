@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:57:26 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/12 16:27:29 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/16 13:43:43 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,15 @@
 # include <X11/keysym.h>
 # include <X11/X.h>
 
-# define WINDOW_WIDTH 1400
-# define WINDOW_HEIGHT 1000
-# define RED_PIXEL 0xFF0000
-# define YELLOW_PIXEL 0xffd700
-# define ORANGE_PIXEL 0xFE5000
-# define VIOLET_PIXEL 0x440099
-# define PINK_PIXEL 0xFF3EB5
-# define BLACK_PIXEL 0x000000
-# define GREEN_PIXEL 0X44D62C
+# define WINDOW_WIDTH 1000
+# define WINDOW_HEIGHT 800
 
-# define GREEN1 7074240
+# define BLACK_PIXEL 0x000000
+# define GREY_PIXEL 11568
+# define PINK_PIXEL 13107455
+
+# define GREEN_PIXEL 9568255
+# define BLUE_PIXEL 54527
 
 # define MANDELBROT 1
 # define JULIA 2
@@ -58,6 +56,8 @@ typedef struct s_img
 	float	offset_r;
 	float	offset_i;
 	float	change_move;
+	int		start_pixel;
+	int		end_pixel;
 }	t_img;
 
 typedef struct s_data
@@ -73,6 +73,7 @@ typedef struct s_data
 
 int		ft_strcmp(char *s1, char *s2);
 float	ft_atoi(const char *nptr);
+void	error_message(void);
 int		handle_key(int key, t_data *data);
 int		handle_mouse(int button, int x, int y, t_data *data);
 void	vars_init(t_data *data);

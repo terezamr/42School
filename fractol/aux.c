@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:12:45 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/12 12:08:57 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:31:03 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,20 @@ float	ft_atoi(const char *nptr)
 		i++;
 	}
 	return (sig * number / decimal);
+}
+
+void	error_message(void)
+{
+	write(1, "------------------------------", 30);
+	write(1, "\nPlease type the arguments in the following format:\n\n", 54);
+	write(1, "Mandelbrot set: ./fractol [2]\n", 30);
+	write(1, "[2]: 'Mandelbrot' or '1'\n\n", 33);
+	write(1, "Julia set: ./fractol [2] [3] [4]\n", 33);
+	write(1, "[2]: 'Julia' or '2' \n", 21);
+	write(1, "[3]: Coordinate x\n", 18);
+	write(1, "[4]: Coordinate y\n\n", 19);
+	write(1, "If the coordinates aren't specified, ", 36);
+	write(1, " the program assumes the following values: ", 43);
+	write(1, "x = 0.26; y = 0.0015.\n", 22);
+	write(1, "-----------------------------\n", 30);
 }

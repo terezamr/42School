@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:10:12 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/12 16:26:46 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/16 13:28:10 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,16 @@ int	render(t_data *data)
 int	check_arguments(int argc, char **argv)
 {
 	if (argc < 2 || argc > 4)
-		write(1, "Arguments missing or incorrect!\n", 32);
+		error_message();
 	else if ((!ft_strcmp(argv[1], "mandelbrot") || !ft_strcmp(argv[1], "1"))
 		&& argc == 2)
 		return (1);
 	else if (!ft_strcmp(argv[1], "julia") || !ft_strcmp(argv[1], "2"))
 	{
-		if (argc == 4 || argc == 0)
+		if (argc == 4 || argc == 2)
 			return (1);
-		write(1, "Arguments missing or incorrect!\n", 32);
+		else
+			error_message();
 	}
 	return (0);
 }
