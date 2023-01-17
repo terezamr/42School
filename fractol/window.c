@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:59:46 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/16 17:07:08 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:59:45 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,25 @@ void	color(int n, int x, int y, t_data *data)
 
 	index = data->img.addr + (y * data->img.line_len
 			+ x * (data->img.bpp / 8));
+	if (n == 0 || n == 1)
+	{
+		*(int *)index = (255 * 65536) + (255 * 256) + 255;
+	}
+	else if (n <= 400 / data->max_iter)
+	{
+		*(int *)index = ((data->img.red - 20 * n) * 65536)
+			+ (data->img.green * 256) + (data->img.blue);
+	}
+	else if (n > 400 / data->max_iter && n <= 800 / data->max_iter)
+	{
+		*(int *)index = (data->img.red * 65536) + (data->img.green * 256) \
+		+ (data->img.blue - 20 * (n - 400 / data->max_iter));
+	}
+	else if (n != data->max_iter && n - 800 / data->max_iter > 0)
+	{
+		*(int *)index = (data->img.red * 65536) + (data->img.green - 20
+				* (n - 800 / data->max_iter) * 256 + (data->img.blue));
+	}
 	if (n == data->max_iter)
 		*(int *)index = BLACK_PIXEL;
-	else
-	{
-		*(int *)index = (data->img.red * 65536 * n / data->max_iter)
-			+ (data->img.green * 256 * 0.8 * n / data->max_iter)
-			+ (data->img.blue);
-	}
 }
