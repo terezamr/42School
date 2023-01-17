@@ -68,7 +68,7 @@ int	check_arguments(int argc, char **argv)
 	}
 	else
 		error_message();
-	return (0);
+	return (1);
 }
 
 void	handle_arguments(int argc, char **argv, t_data *data)
@@ -90,8 +90,7 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	if (check_arguments(argc, argv) == 0)
-		return (0);
+	check_arguments(argc, argv);
 	vars_init(&data);
 	handle_arguments(argc, argv, &data);
 	data.mlx = mlx_init();

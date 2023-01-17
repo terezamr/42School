@@ -21,15 +21,10 @@
 # include <X11/keysym.h>
 # include <X11/X.h>
 
-# define WINDOW_WIDTH 1000
-# define WINDOW_HEIGHT 800
+# define WINDOW_WIDTH 1200
+# define WINDOW_HEIGHT 1000
 
 # define BLACK_PIXEL 0x000000
-# define LIME_PIXEL 12105728
-# define VIOLET_PIXEL 12105983
-
-# define GREEN_PIXEL 38912
-# define BLUE_PIXEL 39167
 
 # define MANDELBROT 1
 # define JULIA 2
@@ -56,8 +51,9 @@ typedef struct s_img
 	float	offset_r;
 	float	offset_i;
 	float	change_move;
-	int		start_pixel;
-	int		end_pixel;
+	int		red;
+	int		green;
+	int		blue;
 }	t_img;
 
 typedef struct s_data

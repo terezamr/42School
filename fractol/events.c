@@ -14,15 +14,15 @@
 
 void	change_color(t_data *data)
 {
-	if (data->img.start_pixel == BLUE_PIXEL)
+	if (data->img.green == 255)
 	{
-		data->img.end_pixel = VIOLET_PIXEL;
-		data->img.start_pixel = LIME_PIXEL;
+		data->img.green = 0;
+		data->img.blue = 0;
 	}
-	else if (data->img.start_pixel == LIME_PIXEL)
+	else if (data->img.green == 0)
 	{
-		data->img.end_pixel = GREEN_PIXEL;
-		data->img.start_pixel = BLUE_PIXEL;
+		data->img.green = 255;
+		data->img.blue = 255;
 	}
 }
 
@@ -56,7 +56,7 @@ int	handle_mouse(int button, int x, int y, t_data *data)
 	if (button == MOUSE_UP)
 		zoom(data, 0.75, 0.7);
 	else if (button == MOUSE_DOWN)
-		zoom(data, 1.4, 2);
+		zoom(data, 2, 2);
 	else if (button == 3)
 		change_color(data);
 	else if (button == 1 && data->set_type == JULIA)
@@ -86,7 +86,7 @@ int	handle_key(int key, t_data *data)
 	else if (key == KEY_PLUS)
 		zoom(data, 0.75, 0.7);
 	else if (key == KEY_MINUS)
-		zoom(data, 1.4, 2);
+		zoom(data, 2, 2);
 	else if (key == INC_IT)
 		data->max_iter += 1;
 	else if (key == DEC_IT && data->max_iter > 1)

@@ -22,9 +22,10 @@ void	vars_init(t_data *data)
 	data->img.change_move = 1;
 	data->julia_r = 0.26;
 	data->julia_i = 0.0015;
-	data->max_iter = 20;
-	data->img.end_pixel = GREEN_PIXEL;
-	data->img.start_pixel = BLUE_PIXEL;
+	data->max_iter = 36;
+	data->img.red = 255;
+	data->img.green = 255;
+	data->img.blue = 255;
 }
 
 int	destroy(int key, t_data *data)
@@ -43,6 +44,9 @@ void	color(int n, int x, int y, t_data *data)
 	if (n == data->max_iter)
 		*(int *)index = BLACK_PIXEL;
 	else
-		*(int *)index = data->img.start_pixel + ((data->img.end_pixel
-					- data->img.start_pixel) * n / data->max_iter);
+	{
+		*(int *)index = (data->img.red * 65536 * n / data->max_iter)
+			+ (data->img.green * 256 * 0.8 * n / data->max_iter)
+			+ (data->img.blue);
+	}
 }
