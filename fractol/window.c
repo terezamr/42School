@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:59:46 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/17 17:59:45 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/18 12:59:11 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ void	color(int n, int x, int y, t_data *data)
 	index = data->img.addr + (y * data->img.line_len
 			+ x * (data->img.bpp / 8));
 	if (n == 0 || n == 1)
-	{
 		*(int *)index = (255 * 65536) + (255 * 256) + 255;
-	}
 	else if (n <= 400 / data->max_iter)
 	{
 		*(int *)index = ((data->img.red - 20 * n) * 65536)
