@@ -28,8 +28,14 @@ typedef struct s_list
 
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
+void	ft_lstadd_front(t_list **lst, t_list *new);
 t_list	*ft_lstnew(int new_number, int i);
 int		ft_atoi(const char *nptr);
 void	error(void);
+t_list	*swap(t_list *stack);
+t_list	*rotate(t_list *stack);
+t_list	*push_ab(t_list *stack_1, t_list **stack_2);
+void	free_lists(t_list *a, t_list *b);
+t_list	*go_back(t_list *stack);
 
 #endif
