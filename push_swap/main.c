@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:47:43 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/27 11:36:30 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/27 12:16:13 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,18 @@ int	main(int argc, char **argv)
 	a = NULL;
 	b = NULL;
 	check_arguments(argc, argv, &a);
-//	a = swap(a);
-//	a = rotate(a);
-//	a = rotate(a);
-	a = push_ab(a, &b);
-	a = push_ab(a, &b);
-//	a = push_ab(a, &b);
-	// b = push_ab(b, &a);
-//	b = swap(b);
+	a = swap(a);
+	a = push(a, &b);
+	a = push(a, &b);
+	a = push(a, &b);
 	a = rotate(a);
-	printf("check\n");
-	//b = rotate(b);
-	printf("check\n");
+	b = rotate(b);
+	a = reverse_rotate(a);
+	b = reverse_rotate(b);
+	a = swap(a);
+	b = push(b, &a);
+	b = push(b, &a);
+	b = push(b, &a);
 	ft_lstiter(argc, a, b);
 	free_lists(a, b);
 }

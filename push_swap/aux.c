@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:25:23 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/27 10:42:13 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/27 11:42:59 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,11 @@ int	ft_atoi(const char *nptr)
 		ini++;
 	}
 	return (sig * number);
+}
+
+t_list	*go_back(t_list *stack)
+{
+	while (stack->prev)
+		stack = stack->prev;
+	return (stack);
 }

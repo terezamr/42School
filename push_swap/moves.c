@@ -6,18 +6,11 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 16:27:15 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/27 11:36:54 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/27 12:12:14 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-t_list	*go_back(t_list *stack)
-{
-	while (stack->prev)
-		stack = stack->prev;
-	return (stack);
-}
 
 t_list	*swap(t_list *stack)
 {
@@ -66,7 +59,22 @@ t_list	*rotate(t_list *stack)
 	return (go_back(stack));
 }
 
-t_list	*push_ab(t_list *stack_1, t_list **stack_2)
+t_list	*reverse_rotate(t_list *stack)
+{
+	t_list	*aux;
+	int		count;
+
+	aux = stack;
+	count = change_index(&stack, count, 1);
+	stack->prev->next = NULL;
+	stack->prev = NULL;
+	stack->next = aux;
+	aux->prev = stack;
+	stack->index = 1;
+	return (stack);
+}
+
+t_list	*push(t_list *stack_1, t_list **stack_2)
 {
 	t_list	*aux;
 	int		count;
