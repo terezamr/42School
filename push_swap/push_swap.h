@@ -38,5 +38,6 @@ t_list	*reverse_rotate(t_list *stack);
 t_list	*push(t_list *stack_1, t_list **stack_2);
 void	free_lists(t_list *a, t_list *b);
 t_list	*go_back(t_list *stack);
+void	check_char(const char *nptr);
 
 #endif

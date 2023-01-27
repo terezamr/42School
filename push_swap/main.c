@@ -6,11 +6,43 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:47:43 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/27 12:16:13 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:50:31 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	validate_arguments(int argc, char **argv)
+{
+	int	i;
+
+	i = 1;
+	if (argc < 2)
+		error();
+	while (i < argc)
+	{
+		check_char(argv[i]);
+		i++;
+	}
+}
+
+void	compare_arg(t_list *new, t_list **stack_a)
+{
+	while (stack_a[0])
+	{
+		if (new->number == stack_a[0]->number)
+			error();
+		if (!stack_a[0]->next)
+			break ;
+		stack_a[0] = stack_a[0]->next;
+	}
+	while (stack_a[0])
+	{
+		if (!stack_a[0]->prev)
+			break ;
+		stack_a[0] = stack_a[0]->prev;
+	}
+}
 
 void	check_arguments(int argc, char **argv, t_list **stack_a)
 {
@@ -19,11 +51,10 @@ void	check_arguments(int argc, char **argv, t_list **stack_a)
 
 	i = 1;
 	new = NULL;
-	if (argc < 2)
-		error();
 	while (i < argc)
 	{
 		new = ft_lstnew(ft_atoi(argv[i]), i);
+		compare_arg(new, stack_a);
 		ft_lstadd_back(stack_a, new);
 		i++;
 	}
@@ -55,6 +86,7 @@ int	main(int argc, char **argv)
 
 	a = NULL;
 	b = NULL;
+	validate_arguments(argc, argv);
 	check_arguments(argc, argv, &a);
 	a = swap(a);
 	a = push(a, &b);
