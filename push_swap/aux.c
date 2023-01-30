@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:25:23 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/27 16:49:14 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/30 10:22:31 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	ft_atoi(const char *nptr)
 		number = number * 10 + (nptr[i] - 48);
 		i++;
 	}
+	if (sig * number > 2147483646 || sig * number < -2147483647)
+		error();
 	return (sig * number);
 }
 

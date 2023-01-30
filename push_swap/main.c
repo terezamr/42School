@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:47:43 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/27 16:50:31 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:00:46 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,19 +87,12 @@ int	main(int argc, char **argv)
 	a = NULL;
 	b = NULL;
 	validate_arguments(argc, argv);
+	printf("check 1\n");
 	check_arguments(argc, argv, &a);
-	a = swap(a);
-	a = push(a, &b);
-	a = push(a, &b);
-	a = push(a, &b);
-	a = rotate(a);
-	b = rotate(b);
-	a = reverse_rotate(a);
-	b = reverse_rotate(b);
-	a = swap(a);
-	b = push(b, &a);
-	b = push(b, &a);
-	b = push(b, &a);
+	printf("check 2\n");
+	a = sorting(a, &b, argc - 1);
+	printf("check 3\n");
 	ft_lstiter(argc, a, b);
+	printf("check 4\n");
 	free_lists(a, b);
 }

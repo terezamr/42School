@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 16:27:15 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/27 15:16:53 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/30 15:54:24 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ t_list	*push(t_list *stack_1, t_list **stack_2)
 	if (!stack_1->next)
 	{
 		ft_lstadd_front(stack_2, stack_1);
+		stack_2[0] = stack_2[0]->next;
+		count = change_index(stack_2, count, 1);
+		*stack_2 = go_back(*stack_2);
 		stack_1 = NULL;
 		return (stack_1);
 	}
