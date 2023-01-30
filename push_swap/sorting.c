@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:45:33 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/30 16:13:01 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:18:04 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,8 @@ t_list	*sorting(t_list *a, t_list **b, int argc)
 	int	offset;
 	int	start;
 	int	end;
-	int	aux;
 	int	index;
 
-	aux = argc;
 	if (argc <= 10)
 		n = 5;
 	else if (argc <= 150)
@@ -66,19 +64,12 @@ t_list	*sorting(t_list *a, t_list **b, int argc)
 		start = start - offset;
 		end = end + offset;
 	}
-	printf("check middle\n");
-	if (a)
-		printf("number %d\n", a->number);
 	while (*b)
 	{
 		index = get_max(*b);
-		printf("check max %d\n", index);
-		if (index == 1)
-		{
+		if (a == NULL || index == 1)
 			*b = push(*b, &a);
-			printf("check first\n");
-		}
-		else if (a == NULL || b[0]->number > ft_lstlast(a)->number)
+		else if (b[0]->number > ft_lstlast(a)->number)
 		{
 			printf("check first\n");
 			*b = push(*b, &a);
@@ -92,6 +83,5 @@ t_list	*sorting(t_list *a, t_list **b, int argc)
 			printf("check third\n");
 		}
 	}
-	printf("check end\n");
 	return (a);
 }

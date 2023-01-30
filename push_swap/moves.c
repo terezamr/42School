@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 16:27:15 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/30 15:54:24 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:11:46 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ t_list	*reverse_rotate(t_list *stack)
 	int		count;
 
 	aux = stack;
+	count = 0;
 	count = change_index(&stack, count, 1);
 	stack->prev->next = NULL;
 	stack->prev = NULL;
@@ -79,6 +80,7 @@ t_list	*push(t_list *stack_1, t_list **stack_2)
 	t_list	*aux;
 	int		count;
 
+	count = 0;
 	if (!stack_1->next)
 	{
 		ft_lstadd_front(stack_2, stack_1);

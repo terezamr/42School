@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:47:43 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/30 16:00:46 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:10:53 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	check_arguments(int argc, char **argv, t_list **stack_a)
 	}
 }
 
-void	ft_lstiter(int argc, t_list *lst, t_list *lst_b)
+void	ft_lstiter(t_list *lst, t_list *lst_b)
 {
 	while (lst)
 	{
@@ -92,7 +92,7 @@ int	main(int argc, char **argv)
 	printf("check 2\n");
 	a = sorting(a, &b, argc - 1);
 	printf("check 3\n");
-	ft_lstiter(argc, a, b);
+	ft_lstiter(a, b);
 	printf("check 4\n");
 	free_lists(a, b);
 }
