@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:47:43 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/31 13:46:11 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/31 14:38:25 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,6 @@ int	main(int argc, char **argv)
 	validate_arguments(argc, argv);
 	check_arguments(argc, argv, &a);
 	a = sorting(a, &b, argc - 1);
-	ft_lstiter(a, b);
+	//ft_lstiter(a, b);
 	free_lists(a, b);
 }

@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:45:33 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/31 13:45:32 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/31 15:30:03 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ t_list	*sorting(t_list *a, t_list **b, int argc)
 	int	start;
 	int	end;
 	int	index;
-	int	down;
 
 	if (argc <= 10)
 		n = 5;
@@ -53,7 +52,6 @@ t_list	*sorting(t_list *a, t_list **b, int argc)
 	offset = argc / n;
 	start = middle - offset;
 	end = middle + offset;
-	down = 0;
 	while (a)
 	{
 		while (argc != 0)
@@ -67,50 +65,33 @@ t_list	*sorting(t_list *a, t_list **b, int argc)
 					*b = rotate(*b);
 					printf("rb\n");
 				}
-				printf("check\n");
 			}
 			else if (ft_lstlast(a)->index != 1)
 			{
 				a = rotate(a);
 				printf("ra\n");
 			}
-			printf("argc i%d\n", argc);
 			argc--;
 		}
-		printf("check f 1\n");
 		if (a)
 		{
-			printf("check a\n");
 			argc = ft_lstlast(a)->index;
 		}
-		printf("check f 2\n");
-		printf("argc f 3: %d\n", argc);
 		start = start - offset;
 		end = end + offset;
 	}
-	printf("check f 4\n");
 	while (*b)
 	{
-		printf("check b\n");
 		index = get_max(*b);
-		printf("index: %d\n", index);
 		middle = ft_lstlast(*b)->index / 2;
-		printf("middle: %d\n", middle);
-		printf("adeus b\n");
-		//printf("b %d %d\n", b[0]->index, b[0]->number);
-		//printf("index max %d\n", index);
-		//printf("middle %d\n", middle);
 		if (index == 1)
 		{
 			*b = push(*b, &a);
 			printf("pa\n");
-			down = down + 1;
 		}
 		else if (a && b[0]->number > ft_lstlast(a)->number)
 		{
-			printf("check second\n");
 			*b = push(*b, &a);
-			down = down + 1;
 			printf("pa\n");
 			if (ft_lstlast(a)->index != 1)
 			{
