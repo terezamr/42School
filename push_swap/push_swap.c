@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:47:43 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/30 17:10:53 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/01/31 13:46:11 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,8 @@ int	main(int argc, char **argv)
 	a = NULL;
 	b = NULL;
 	validate_arguments(argc, argv);
-	printf("check 1\n");
 	check_arguments(argc, argv, &a);
-	printf("check 2\n");
 	a = sorting(a, &b, argc - 1);
-	printf("check 3\n");
 	ft_lstiter(a, b);
-	printf("check 4\n");
 	free_lists(a, b);
 }
