@@ -6,13 +6,13 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:45:33 by mvicente          #+#    #+#             */
-/*   Updated: 2023/01/31 15:30:03 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/01 16:35:29 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	get_max(t_list *stack)
+int	get_max(t_list *stack, int *max)
 {
 	int	index;
 	int	number;
@@ -30,7 +30,119 @@ int	get_max(t_list *stack)
 			number = stack->number;
 		}
 	}
+	*max = number;
 	return (index);
+}
+
+int	get_min(t_list *stack)
+{
+	int	index;
+	int	number;
+
+	index = stack->index;
+	number = stack->number;
+	while (stack)
+	{
+		if (!stack->next)
+			break ;
+		stack = stack->next;
+		if (stack->number < number)
+		{
+			index = stack->index;
+			number = stack->number;
+		}
+	}
+	return (index);
+}
+
+t_list	*sort_three(t_list *a)
+{
+	int	index;
+	int	max;
+
+	max = 0;
+	index = get_max(a, &max);
+	if (index == 1)
+	{
+		a = rotate(a);
+		printf("ra\n");
+	}
+	else if (index == 2)
+	{
+		a = reverse_rotate(a);
+		printf("rra\n");
+	}
+	if (a->number > a->next->number)
+	{
+		a = swap(a);
+		printf("sa\n");
+	}
+	return (a);
+}
+
+t_list	*sort_five(t_list *a, t_list **b, int argc)
+{
+	int	aux;
+	int	max;
+
+	if (argc != 3)
+	{
+		while (ft_lstlast(a)->index != 3)
+		{
+			a = push(a, &b[0]);
+			printf("pb\n");
+		}
+	}
+	a = sort_three(a);
+	while (*b)
+	{
+		if (a->number < b[0]->number)
+		{
+			aux = get_max(a, &max);
+			if (b[0]->number < max)
+			{
+				while (a->number < b[0]->number)
+				{
+					a = rotate(a);
+					printf("ra\n");
+					aux--;
+					if (aux == 0)
+						break ;
+				}
+			}		
+			b[0] = push(b[0], &a);
+			printf("pa\n");
+		}
+		else if (a->number > b[0]->number && get_min(a) == 1)
+		{
+			b[0] = push(b[0], &a);
+			printf("pa\n");
+		}
+		else
+		{
+			while (a->number > b[0]->number)
+			{
+				a = reverse_rotate(a);
+				printf("rra\n");
+				if (get_min(a) == 1)
+					break ;
+			}
+		}
+	}
+	while (get_max(a, &max) != argc)
+	{
+		if (get_max(a, &max) > argc / 2)
+		{
+			a = reverse_rotate(a);
+			printf("rra\n");
+		}
+		else
+		{
+			a = rotate(a);
+			printf("ra\n");
+		}
+	}
+	return (a);
 }
 
 t_list	*sorting(t_list *a, t_list **b, int argc)
@@ -41,7 +153,9 @@ t_list	*sorting(t_list *a, t_list **b, int argc)
 	int	start;
 	int	end;
 	int	index;
+	int max;
 
+	max = 0;
 	if (argc <= 10)
 		n = 5;
 	else if (argc <= 150)
@@ -52,6 +166,8 @@ t_list	*sorting(t_list *a, t_list **b, int argc)
 	offset = argc / n;
 	start = middle - offset;
 	end = middle + offset;
+	if (argc <= 5)
+		return (sort_five(a, &b[0], argc));
 	while (a)
 	{
 		while (argc != 0)
@@ -82,7 +198,7 @@ t_list	*sorting(t_list *a, t_list **b, int argc)
 	}
 	while (*b)
 	{
-		index = get_max(*b);
+		index = get_max(*b, &max);
 		middle = ft_lstlast(*b)->index / 2;
 		if (index == 1)
 		{

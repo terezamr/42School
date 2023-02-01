@@ -40,5 +40,6 @@ void	free_lists(t_list *a, t_list *b);
 t_list	*go_back(t_list *stack);
 void	check_char(const char *nptr);
 t_list	*sorting(t_list *a, t_list **b, int argc);
+void	ft_lstiter(t_list *lst, t_list *lst_b);
 
 #endif
