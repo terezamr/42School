@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:45:33 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/01 16:35:29 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/01 16:59:37 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,22 +96,33 @@ t_list	*sort_five(t_list *a, t_list **b, int argc)
 	a = sort_three(a);
 	while (*b)
 	{
-		if (a->number < b[0]->number)
+		aux = get_max(a, &max);
+		//printf("min a %d, max %d\n", get_min(a), max);
+		if (get_min(a) == 1 && b[0]->number > max)
 		{
-			aux = get_max(a, &max);
-			if (b[0]->number < max)
-			{
-				while (a->number < b[0]->number)
-				{
-					a = rotate(a);
-					printf("ra\n");
-					aux--;
-					if (aux == 0)
-						break ;
-				}
-			}		
 			b[0] = push(b[0], &a);
 			printf("pa\n");
+		}
+		else if (a->number < b[0]->number)
+		{
+			// if (b[0]->number > max)
+			// {
+			// 	b[0] = push(b[0], &a);
+			// 	printf("pa\n");
+			// }
+			// else
+			// {
+			while (a->number < b[0]->number)
+			{
+				a = rotate(a);
+				printf("ra\n");
+				aux--;
+				if (aux == 0)
+					break ;
+			}
+			b[0] = push(b[0], &a);
+			printf("pa\n");
+			// }
 		}
 		else if (a->number > b[0]->number && get_min(a) == 1)
 		{
@@ -156,6 +167,8 @@ t_list	*sorting(t_list *a, t_list **b, int argc)
 	int max;
 
 	max = 0;
+	if (argc == 3)
+		return (sort_three(a));
 	if (argc <= 10)
 		n = 5;
 	else if (argc <= 150)
