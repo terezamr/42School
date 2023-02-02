@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 16:27:15 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/01 11:41:30 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:40:39 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ t_list	*swap(t_list *stack)
 	stack->next->number = a;
 	stack->index = 1;
 	stack->next->index = 2;
+	// write(1, "s", 1);
+	// write(1, &p, 1);
+	// write(1, "\n", 1);
 	return (stack);
 }
 
@@ -56,6 +59,9 @@ t_list	*rotate(t_list *stack)
 	count++;
 	stack = stack->next;
 	stack->index = count;
+	// write(1, "r", 1);
+	// write(1, &p, 1);
+	// write(1, "\n", 1);
 	return (go_back(stack));
 }
 
@@ -72,6 +78,9 @@ t_list	*reverse_rotate(t_list *stack)
 	stack->next = aux;
 	aux->prev = stack;
 	stack->index = 1;
+	// write(1, "rr", 2);
+	// write(1, &p, 1);
+	// write(1, "\n", 1);
 	return (stack);
 }
 
@@ -100,5 +109,6 @@ t_list	*push(t_list *stack_1, t_list **stack_2)
 	stack_2[0] = stack_2[0]->next;
 	count = change_index(stack_2, count, 1);
 	*stack_2 = go_back(*stack_2);
+	//printf("p%c\n", p);
 	return (go_back(stack_1));
 }

@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:47:43 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/01 16:39:40 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:01:39 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	validate_arguments(int argc, char **argv)
 	int	i;
 
 	i = 1;
-	if (argc < 2)
-		error();
+	if (argc <= 2)
+		exit(0);
 	while (i < argc)
 	{
 		check_char(argv[i]);
@@ -31,7 +31,11 @@ void	compare_arg(t_list *new, t_list **stack_a)
 	while (stack_a[0])
 	{
 		if (new->number == stack_a[0]->number)
+		{
+			free_lists(*stack_a, 0);
+			free(new);
 			error();
+		}
 		if (!stack_a[0]->next)
 			break ;
 		stack_a[0] = stack_a[0]->next;
@@ -88,7 +92,11 @@ int	main(int argc, char **argv)
 	b = NULL;
 	validate_arguments(argc, argv);
 	check_arguments(argc, argv, &a);
+	if (check_sort(a) == 1)
+	{
+		free_lists(a, b);
+		exit(0);
+	}
 	a = sorting(a, &b, argc - 1);
-	//ft_lstiter(a, b);
 	free_lists(a, b);
 }
