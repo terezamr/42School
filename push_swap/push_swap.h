@@ -40,7 +40,7 @@ void	error(void);
 t_list	*swap(t_list *stack, char p);
 t_list	*rotate(t_list *stack, char p);
 t_list	*reverse_rotate(t_list *stack, char p);
-t_list	*push(t_list *stack_1, t_list **stack_2, char p);
+t_list	*push(t_list *stack_1, t_list **stack_2);
 
 t_list	*go_back(t_list *stack);
 t_list	*sorting(t_list *a, t_list **b, int argc);
@@ -51,5 +51,6 @@ int		get_max(t_list *stack, int *max);
 int		get_min(t_list *stack);
 t_list	*sort_two(t_list *a);
 t_list	*sort_three(t_list *a);
+t_list	*sort_five(t_list *a, t_list **b, int argc);
 
 #endif

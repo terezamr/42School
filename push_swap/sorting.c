@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:45:33 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/03 13:53:28 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:54:00 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,20 @@ t_list	*sort_five(t_list *a, t_list **b, int argc)
 	if (argc != 3)
 	{
 		while (ft_lstlast(a)->index != 3)
-			a = push(a, &b[0], 'b');
+		{
+			a = push(a, &b[0]);
+			printf("pb\n");
+		}
 	}
 	a = sort_three(a);
 	while (*b)
 	{
 		aux = get_max(a, &max);
 		if (get_min(a) == 1 && b[0]->number > max)
-			b[0] = push(b[0], &a, 'a');
+		{
+			b[0] = push(b[0], &a);
+			printf("pa\n");
+		}
 		else if (a->number < b[0]->number)
 		{
 			while (a->number < b[0]->number)
@@ -37,10 +43,14 @@ t_list	*sort_five(t_list *a, t_list **b, int argc)
 				if (aux == 0)
 					break ;
 			}
-			b[0] = push(b[0], &a, 'a');
+			b[0] = push(b[0], &a);
+			printf("pa\n");
 		}
 		else if (a->number > b[0]->number && get_min(a) == 1)
-			b[0] = push(b[0], &a, 'a');
+		{
+			b[0] = push(b[0], &a);
+			printf("pa\n");
+		}
 		else
 		{
 			while (a->number > b[0]->number)
@@ -94,7 +104,8 @@ t_list	*sorting(t_list *a, t_list **b, int argc)
 		{
 			if (a->position >= start && a->position <= end)
 			{
-				a = push(a, &b[0], 'b');
+				a = push(a, &b[0]);
+				printf("pb\n");
 				if (b[0]->position <= middle && ft_lstlast(b[0])->index != 1)
 					*b = rotate(*b, 'b');
 			}
@@ -112,10 +123,14 @@ t_list	*sorting(t_list *a, t_list **b, int argc)
 		index = get_max(*b, &max);
 		middle = ft_lstlast(*b)->index / 2;
 		if (index == 1)
-			*b = push(*b, &a, 'a');
+		{
+			*b = push(*b, &a);
+			printf("pa\n");
+		}
 		else if (a && b[0]->position > ft_lstlast(a)->position)
 		{
-			*b = push(*b, &a, 'a');
+			*b = push(*b, &a);
+			printf("pa\n");
 			if (ft_lstlast(a)->index != 1)
 				a = rotate(a, 'a');
 		}

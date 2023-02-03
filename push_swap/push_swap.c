@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:47:43 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/03 12:25:37 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:55:11 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,6 @@ void	check_arguments(int argc, char **argv, t_list **stack_a)
 		compare_arg(new, stack_a);
 		ft_lstadd_back(stack_a, new);
 		i++;
-	}
-}
-
-void	ft_lstiter(t_list *lst, t_list *lst_b)
-{
-	while (lst)
-	{
-		printf("a index %d, position %d, number %d\n", lst->index, lst->position, lst->number);
-		if (!lst->next)
-			break ;
-		lst = lst->next;
-	}
-	printf("\n");
-	while (lst_b)
-	{
-		printf("a index %d, position %d, number %d\n", lst->index, lst->position, lst->number);
-		if (!lst_b->next)
-			break ;
-		lst_b = lst_b->next;
 	}
 }
 
@@ -140,7 +121,7 @@ int	main(int argc, char **argv)
 		free_lists(a, b);
 		exit(0);
 	}
-	get_positions(a, argc -1);
+	get_positions(a, argc - 1);
 	a = sorting(a, &b, argc - 1);
 	free_lists(a, b);
 }
