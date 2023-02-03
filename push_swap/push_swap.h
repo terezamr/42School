@@ -22,6 +22,7 @@ typedef struct s_list
 {
 	int				index;
 	int				number;
+	int				position;
 	struct s_list	*prev;
 	struct s_list	*next;
 }					t_list;
@@ -36,10 +37,10 @@ void	ft_lstiter(t_list *lst, t_list *lst_b);
 int		ft_atoi(const char *nptr);
 void	error(void);
 
-t_list	*swap(t_list *stack);
-t_list	*rotate(t_list *stack);
-t_list	*reverse_rotate(t_list *stack);
-t_list	*push(t_list *stack_1, t_list **stack_2);
+t_list	*swap(t_list *stack, char p);
+t_list	*rotate(t_list *stack, char p);
+t_list	*reverse_rotate(t_list *stack, char p);
+t_list	*push(t_list *stack_1, t_list **stack_2, char p);
 
 t_list	*go_back(t_list *stack);
 t_list	*sorting(t_list *a, t_list **b, int argc);

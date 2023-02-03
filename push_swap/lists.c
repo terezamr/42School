@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 13:25:34 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/02 12:23:41 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/03 11:13:17 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_list	*ft_lstnew(int new_number, int i)
 		return (NULL);
 	new->index = i;
 	new->number = new_number;
+	new->position = 0;
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);

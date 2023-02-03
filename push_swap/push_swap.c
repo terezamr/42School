@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:47:43 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/02 15:01:39 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/03 12:25:37 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_lstiter(t_list *lst, t_list *lst_b)
 {
 	while (lst)
 	{
-		printf("a index %d, number %d\n", lst->index, lst->number);
+		printf("a index %d, position %d, number %d\n", lst->index, lst->position, lst->number);
 		if (!lst->next)
 			break ;
 		lst = lst->next;
@@ -76,10 +76,53 @@ void	ft_lstiter(t_list *lst, t_list *lst_b)
 	printf("\n");
 	while (lst_b)
 	{
-		printf("b index %d, number %d\n", lst_b->index, lst_b->number);
+		printf("a index %d, position %d, number %d\n", lst->index, lst->position, lst->number);
 		if (!lst_b->next)
 			break ;
 		lst_b = lst_b->next;
+	}
+}
+
+void	get_positions(t_list *a, int size)
+{
+	t_list	*aux;
+	int		number;
+	int		index;
+	int		count;
+
+	aux = a;
+	count = 1;
+	while (count <= size)
+	{
+		aux = a;
+		while (aux)
+		{
+			if (aux->position == 0)
+			{
+				number = aux->number;
+				break ;
+			}
+			if (!aux->next)
+				break ;
+			aux = aux->next;
+		}
+		index = aux->index;
+		while (aux)
+		{
+			if (!aux->next)
+				break ;
+			aux = aux->next;
+			if (aux->number < number && aux->position == 0)
+			{
+				number = aux->number;
+				index = aux->index;
+			}
+		}
+		aux = a;
+		while (aux->index != index)
+			aux = aux->next;
+		aux->position = count;
+		count++;
 	}
 }
 
@@ -97,6 +140,7 @@ int	main(int argc, char **argv)
 		free_lists(a, b);
 		exit(0);
 	}
+	get_positions(a, argc -1);
 	a = sorting(a, &b, argc - 1);
 	free_lists(a, b);
 }

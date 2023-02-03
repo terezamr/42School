@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 15:02:44 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/02 15:37:55 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/03 12:56:08 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,7 @@ int	get_min(t_list *stack)
 t_list	*sort_two(t_list *a)
 {
 	if (a->number > a->next->number)
-	{
-		a = swap(a);
-		printf("sa\n");
-	}
+		a = swap(a, 'a');
 	return (a);
 }
 
@@ -73,19 +70,10 @@ t_list	*sort_three(t_list *a)
 	max = 0;
 	index = get_max(a, &max);
 	if (index == 1)
-	{
-		a = rotate(a);
-		printf("ra\n");
-	}
+		a = rotate(a, 'a');
 	else if (index == 2)
-	{
-		a = reverse_rotate(a);
-		printf("rra\n");
-	}
+		a = reverse_rotate(a, 'a');
 	if (a->number > a->next->number)
-	{
-		a = swap(a);
-		printf("sa\n");
-	}
+		a = swap(a, 'a');
 	return (a);
 }
