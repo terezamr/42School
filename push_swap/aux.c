@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:25:23 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/02 15:00:45 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:50:32 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,23 +65,4 @@ t_list	*go_back(t_list *stack)
 	while (stack->prev)
 		stack = stack->prev;
 	return (stack);
-}
-
-int	check_sort(t_list *lst)
-{
-	int	flag;
-
-	flag = 1;
-	while (lst)
-	{
-		if (!lst->next)
-			break ;
-		if (lst->next->number < lst->number)
-		{
-			flag = 0;
-			break ;
-		}
-		lst = lst->next;
-	}
-	return (flag);
 }

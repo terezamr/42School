@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:47:43 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/03 14:55:11 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:55:33 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,38 +67,17 @@ void	check_arguments(int argc, char **argv, t_list **stack_a)
 void	get_positions(t_list *a, int size)
 {
 	t_list	*aux;
-	int		number;
 	int		index;
 	int		count;
+	int		number;
 
-	aux = a;
 	count = 1;
+	number = 0;
 	while (count <= size)
 	{
 		aux = a;
-		while (aux)
-		{
-			if (aux->position == 0)
-			{
-				number = aux->number;
-				break ;
-			}
-			if (!aux->next)
-				break ;
-			aux = aux->next;
-		}
-		index = aux->index;
-		while (aux)
-		{
-			if (!aux->next)
-				break ;
-			aux = aux->next;
-			if (aux->number < number && aux->position == 0)
-			{
-				number = aux->number;
-				index = aux->index;
-			}
-		}
+		aux = first_position(aux, &number);
+		index = get_index(aux, aux->number);
 		aux = a;
 		while (aux->index != index)
 			aux = aux->next;
@@ -111,9 +90,11 @@ int	main(int argc, char **argv)
 {
 	t_list	*a;
 	t_list	*b;
+	int		n;
 
 	a = NULL;
 	b = NULL;
+	n = 0;
 	validate_arguments(argc, argv);
 	check_arguments(argc, argv, &a);
 	if (check_sort(a) == 1)
@@ -122,6 +103,12 @@ int	main(int argc, char **argv)
 		exit(0);
 	}
 	get_positions(a, argc - 1);
-	a = sorting(a, &b, argc - 1);
+	if (argc > 5 && argc <= 10)
+		n = 5;
+	else if (argc > 10 && argc <= 150)
+		n = 8;
+	else
+		n = 18;
+	a = sorting(a, &b, argc - 1, n);
 	free_lists(a, b);
 }
