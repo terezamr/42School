@@ -6,14 +6,19 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:45:33 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/06 15:16:31 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/06 16:30:41 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_list	*check_range(t_list *a, t_list **b, int start, int aux)
+t_list	*check_range(t_list *a, t_list **b, int start, int offset)
 {
+	int	end;
+	int	aux;
+
+	end = start + 2 * offset;
+	aux = (end - offset) * 2;
 	if (a->position >= start && a->position <= end)
 	{
 		a = push(a, &b[0], 'b');
@@ -38,15 +43,17 @@ t_list	*atob(t_list *a, t_list **b, int argc, int offset)
 	{
 		while (argc != 0)
 		{
-			// if (a->position >= start && a->position <= end)
-			// {
-			// 	a = push(a, &b[0], 'b');
-			// 	if (b[0]->position <= aux / 2 && ft_lstlast(b[0])->index != 1)
-			// 		*b = rotate(*b, 'b');
-			// }
-			// else if (ft_lstlast(a)->index != 1)
-			// 	a = rotate(a, 'a');
-			a = check_range(a, &b[0], start, aux);
+			printf("argc 1:%d\n", argc);
+			if (a->position >= start && a->position <= end)
+			{
+				a = push(a, &b[0], 'b');
+				if (b[0]->position <= aux / 2 && ft_lstlast(b[0])->index != 1)
+					*b = rotate(*b, 'b');
+			}
+			else if (ft_lstlast(a)->index != 1)
+				a = rotate(a, 'a');
+			//a = check_range(a, &b[0], start, offset);
+			printf("argc 2:%d\n", argc);
 			argc--;
 		}
 		if (a)
@@ -57,7 +64,7 @@ t_list	*atob(t_list *a, t_list **b, int argc, int offset)
 	return (a);
 }
 
-t_list	*betoa(t_list *a, t_list **b)
+t_list	*btoa(t_list *a, t_list **b)
 {
 	int	index;
 	int	middle;
@@ -98,6 +105,6 @@ t_list	*sorting(t_list *a, t_list **b, int argc, int n)
 	if (argc <= 5)
 		return (sort_five(a, &b[0], argc));
 	a = atob(a, &b[0], argc, offset);
-	a = betoa(a, &b[0]);
+	a = btoa(a, &b[0]);
 	return (a);
 }

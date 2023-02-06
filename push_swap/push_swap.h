@@ -40,7 +40,7 @@ t_list	*reverse_rotate(t_list *stack, char p);
 t_list	*push(t_list *stack_1, t_list **stack_2, char p);
 
 t_list	*atob(t_list *a, t_list **b, int argc, int offset);
-t_list	*betoa(t_list *a, t_list **b);
+t_list	*btoa(t_list *a, t_list **b);
 t_list	*sorting(t_list *a, t_list **b, int argc, int n);
 
 t_list	*sort_two(t_list *a);
