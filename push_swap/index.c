@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:48:42 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/06 14:51:44 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:10:57 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,15 @@ int	get_index(t_list *stack, int aux)
 
 int	change_index(t_list **stack, int count, int i)
 {
-	while (stack[0])
+	while (*stack)
 	{
 		if (i == -1)
-			stack[0]->index--;
+			(*stack)->index--;
 		else if (i == 1)
-			stack[0]->index++;
-		if (!stack[0]->next)
+			(*stack)->index++;
+		if (!(*stack)->next)
 			break ;
-		stack[0] = stack[0]->next;
+		(*stack) = (*stack)->next;
 		count++;
 	}
 	return (count);

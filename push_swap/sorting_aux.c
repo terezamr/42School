@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:47:23 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/06 14:49:16 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:41:52 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,5 @@ void	aux_f(t_list **stack, int count, char p)
 {
 	count = change_index(stack, count, 1);
 	*stack = go_back(*stack);
-	printf("p%c\n", p);
+	instructions('p', p);
 }

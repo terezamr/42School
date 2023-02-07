@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 15:02:44 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/06 13:41:33 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:26:18 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,18 @@ t_list	*btoa_5(t_list *a, t_list **b, int aux, int *max)
 	while (*b)
 	{
 		aux = get_max(a, max);
-		if (get_min(a) == 1 && b[0]->number > *max)
-			b[0] = push(b[0], &a, 'a');
-		else if (a->number < b[0]->number)
+		if (get_min(a) == 1 && (*b)->number > *max)
+			*b = push(*b, &a, 'a');
+		else if (a->number < (*b)->number)
 		{
 			a = rotate_a(a, *b, aux);
-			b[0] = push(b[0], &a, 'a');
+			*b = push(*b, &a, 'a');
 		}
-		else if (a->number > b[0]->number && get_min(a) == 1)
-			b[0] = push(b[0], &a, 'a');
+		else if (a->number > (*b)->number && get_min(a) == 1)
+			*b = push(*b, &a, 'a');
 		else
 		{
-			while (a->number > b[0]->number)
+			while (a->number > (*b)->number)
 			{
 				a = reverse_rotate(a, 'a');
 				if (get_min(a) == 1)
@@ -83,7 +83,7 @@ t_list	*sort_five(t_list *a, t_list **b, int argc)
 	if (argc != 3)
 	{
 		while (ft_lstlast(a)->index != 3)
-			a = push(a, &b[0], 'b');
+			a = push(a, b, 'b');
 	}
 	a = sort_three(a);
 	a = btoa_5(a, b, aux, &max);

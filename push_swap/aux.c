@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:25:23 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/06 12:50:32 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:15:30 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	error(void)
 {
-	printf("Error\n");
+	write(1, "Error\n", 6);
 	exit(0);
 }
 

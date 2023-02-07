@@ -62,5 +62,6 @@ int		change_index(t_list **stack, int count, int i);
 int		check_sort(t_list *lst);
 t_list	*first_position(t_list *stack, int *number);
 void	aux_f(t_list **stack, int count, char p);
+void	instructions(char m, char p);
 
 #endif
