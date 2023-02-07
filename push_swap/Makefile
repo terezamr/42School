@@ -6,14 +6,14 @@
 #    By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/26 12:41:51 by mvicente          #+#    #+#              #
-#    Updated: 2023/02/06 14:51:24 by mvicente         ###   ########.fr        #
+#    Updated: 2023/02/07 14:45:18 by mvicente         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror 
 
 RM = rm -f
 
@@ -21,7 +21,7 @@ SRC = push_swap.c aux.c lists.c moves.c sorting.c sort_cases.c sorting_aux.c ind
 OBJ = $(SRC:.c=.o)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ 
 	
 all:	$(NAME)	
 

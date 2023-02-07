@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:47:43 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/06 13:55:33 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:02:12 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,16 @@ void	validate_arguments(int argc, char **argv)
 
 void	compare_arg(t_list *new, t_list **stack_a)
 {
-	while (stack_a[0])
+	while (*stack_a)
 	{
-		if (new->number == stack_a[0]->number)
+		if (new->number == (*stack_a)->number)
 		{
-			free_lists(*stack_a, 0);
-			free(new);
+			free_lists(go_back(*stack_a), new);
 			error();
 		}
-		if (!stack_a[0]->next)
+		if (!(*stack_a)->next)
 			break ;
-		stack_a[0] = stack_a[0]->next;
-	}
-	while (stack_a[0])
-	{
-		if (!stack_a[0]->prev)
-			break ;
-		stack_a[0] = stack_a[0]->prev;
+		(*stack_a) = (*stack_a)->next;
 	}
 }
 
@@ -62,6 +55,7 @@ void	check_arguments(int argc, char **argv, t_list **stack_a)
 		ft_lstadd_back(stack_a, new);
 		i++;
 	}
+	*stack_a = go_back(*stack_a);
 }
 
 void	get_positions(t_list *a, int size)
@@ -107,8 +101,10 @@ int	main(int argc, char **argv)
 		n = 5;
 	else if (argc > 10 && argc <= 150)
 		n = 8;
+	else if (argc > 150 && argc <= 400)
+		n = 15;
 	else
-		n = 18;
+		n = 22;
 	a = sorting(a, &b, argc - 1, n);
 	free_lists(a, b);
 }

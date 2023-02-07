@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 13:25:34 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/03 11:13:17 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:02:53 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 	{
 		new->next = *lst;
 		new->prev = NULL;
-		lst[0]->prev = new;
+		(*lst)->prev = new;
 		*lst = new;
 	}
 }	
