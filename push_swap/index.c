@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:48:42 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/07 15:10:57 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:01:55 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	get_min(t_list *stack)
 	return (index);
 }
 
-int	get_index(t_list *stack, int aux)
+int	min_zero_position(t_list *stack, int aux)
 {
 	int	index;
 

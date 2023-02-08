@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:25:23 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/07 16:15:30 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/08 16:29:49 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	error(void)
 {
 	write(1, "Error\n", 6);
-	exit(0);
+	exit(1);
 }
 
 void	check_char(const char *nptr)
@@ -23,9 +23,11 @@ void	check_char(const char *nptr)
 	int	i;
 
 	i = 0;
+	if (nptr[i] != '-' || nptr[i] != '+')
+		i++;
 	while (nptr[i])
 	{
-		if ((nptr[i] < 48 || nptr[i] > 57) && nptr[i] != '-' && nptr[i] != '+')
+		if ((nptr[i] < 48 || nptr[i] > 57))
 			error();
 		i++;
 	}
@@ -33,9 +35,9 @@ void	check_char(const char *nptr)
 
 int	ft_atoi(const char *nptr)
 {
-	int	i;
-	int	number;
-	int	sig;
+	int		i;
+	double	number;
+	double	sig;
 
 	i = 0;
 	number = 0;
@@ -55,7 +57,7 @@ int	ft_atoi(const char *nptr)
 		number = number * 10 + (nptr[i] - 48);
 		i++;
 	}
-	if (sig * number > 2147483646 || sig * number < -2147483647)
+	if (sig * number > MAX_INT || sig * number < MIN_INT)
 		error();
 	return (sig * number);
 }

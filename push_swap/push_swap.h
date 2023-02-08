@@ -27,6 +27,9 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+# define MIN_INT -2147483648
+# define MAX_INT 2147483647
+
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstadd_front(t_list **lst, t_list *new);
@@ -56,7 +59,7 @@ t_list	*go_back(t_list *stack);
 
 int		get_max(t_list *stack, int *max);
 int		get_min(t_list *stack);
-int		get_index(t_list *stack, int aux);
+int		min_zero_position(t_list *stack, int aux);
 int		change_index(t_list **stack, int count, int i);
 
 int		check_sort(t_list *lst);

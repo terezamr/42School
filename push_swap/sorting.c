@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:45:33 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/07 17:50:21 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:50:17 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,6 @@ t_list	*btoa(t_list *a, t_list **b)
 		middle = ft_lstlast(*b)->index / 2;
 		if (index == 1)
 			*b = push(*b, &a, 'a');
-		else if (a && (*b)->position > ft_lstlast(a)->position)
-		{
-			*b = push(*b, &a, 'a');
-			if (ft_lstlast(a)->index != 1)
-				a = rotate(a, 'a');
-		}
 		else if (ft_lstlast(*b)->index != 1)
 		{
 			if (index <= middle)

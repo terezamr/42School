@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:47:43 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/07 15:02:12 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/08 16:30:59 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,18 @@
 void	validate_arguments(int argc, char **argv)
 {
 	int	i;
+	int	f;
 
 	i = 1;
-	if (argc <= 2)
+	f = 0;
+	if (argc == 1)
 		exit(0);
+	if (argc == 2)
+	{
+		ft_atoi(argv[1]);
+		check_char(argv[i]);
+		exit(0);
+	}
 	while (i < argc)
 	{
 		check_char(argv[i]);
@@ -51,6 +59,8 @@ void	check_arguments(int argc, char **argv, t_list **stack_a)
 	while (i < argc)
 	{
 		new = ft_lstnew(ft_atoi(argv[i]), i);
+		if (*stack_a)
+			*stack_a = go_back(*stack_a);
 		compare_arg(new, stack_a);
 		ft_lstadd_back(stack_a, new);
 		i++;
@@ -71,7 +81,7 @@ void	get_positions(t_list *a, int size)
 	{
 		aux = a;
 		aux = first_position(aux, &number);
-		index = get_index(aux, aux->number);
+		index = min_zero_position(aux, aux->number);
 		aux = a;
 		while (aux->index != index)
 			aux = aux->next;
