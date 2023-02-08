@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 16:27:15 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/07 17:41:42 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/08 11:33:58 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	instructions(char m, char p)
 	write(1, &p, 1);
 	write(1, "\n", 1);
 }
-
 
 t_list	*swap(t_list *stack, char p)
 {
