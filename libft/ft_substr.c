@@ -6,12 +6,22 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 12:19:02 by mvicente          #+#    #+#             */
-/*   Updated: 2022/11/16 16:19:16 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:03:50 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/*
+ * Ft_substr() returns a pointer to a new string which is a substring of the string pointed to by s,
+ * starting at index start and of length len.
+ * 
+ * @param s The string to be split.
+ * @param start the index of the first character to include in the substring.
+ * @param len the length of the substring
+ * 
+ * @return A pointer to a new string.
+ */
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*ptr;
