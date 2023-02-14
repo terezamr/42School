@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 13:08:06 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/10 18:06:19 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:12:36 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,38 +15,46 @@
 char	*check_path(char **paths, char *command)
 {
 	int		i;
-	char	*aux;
+	char	*path;
 
 	i = 0;
 	while (paths[i])
 	{
-		aux = ft_strjoin(paths[i], "/");
-		aux = ft_strjoin(aux, command);
-		if (access(aux, X_OK) == 0)
-			return (aux);
+		path = ft_strjoin(paths[i], "/");
+		path = ft_strjoin(path, command);
+		if (access(path, X_OK) == 0)
+			return (path);
 		i++;
 	}
 	return (NULL);
 }
 
-void	command1(int *fds, char *right_path, char **param, char **envp)
+void	command1(int *fd, char **right_path, char **param, char **envp)
 {
-	int	f;
+	int		f;
 
-	f = open("/sgoinfre/goinfre/Perso/mvicente/42/pipex/inputf.txt", R_OK);
+	f = open(right_path[3], O_RDONLY);
+	if (f == -1)
+		error();
 	dup2(f, STDIN_FILENO);
-	dup2(fds[1], STDOUT_FILENO);
-	execve(right_path, param, envp);
+	dup2(fd[1], STDOUT_FILENO);
+	close(fd[0]);
+	close(fd[1]);
+	execve(right_path[0], param, envp);
 }
 
-void	command2(int *fds, char *right_path, char **param, char **envp)
+void	command2(int *fd, char **right_path, char **param, char **envp)
 {
 	int	f;
 
-	f = open("/sgoinfre/goinfre/Perso/mvicente/42/pipex/outputf.txt", R_OK);
-	dup2(fds[0], STDIN_FILENO);
+	f = open(right_path[4], O_WRONLY | O_TRUNC | O_CREAT);
+	if (f == -1)
+		error();
+	dup2(fd[0], STDIN_FILENO);
 	dup2(f, STDOUT_FILENO);
-	execve(right_path, param, envp);
+	close(fd[0]);
+	close(fd[1]);
+	execve(right_path[1], param, envp);
 }
 
 void	pipex(char **param1, char **param2, char **right_path, char **envp)
@@ -55,22 +63,27 @@ void	pipex(char **param1, char **param2, char **right_path, char **envp)
 	int		p1;
 	int		p2;
 	int		p;
-	int		fds[2];
+	int		fd[2];
 
 	commands[0] = param1[0];
 	commands[1] = param2[0];
-	printf("right path 1 %s\n", right_path[0]);
-	printf("right path 2 %s\n", right_path[1]);
-	printf("param 1 %s\n", param1[0]);
-	printf("param 2 %s\n", param2[0]);
-	pipe(fds);
+	pipe(fd);
 	p1 = fork();
-	if (p1 == 0)
-		command1(fds, right_path[0], param1, envp);
+	if (p1 == -1)
+		error();
+	else if (p1 == 0)
+		command1(fd, right_path, param1, envp);
 	p2 = fork();
-	if (p2 == 0)
-		command1(fds, right_path[1], param2, envp);
+	if (p2 == -1)
+		error();
+	else if (p2 == 0)
+	{
+		wait(NULL);
+		command2(fd, right_path, param2, envp);
+	}
 }
+
+
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -78,7 +91,7 @@ int	main(int argc, char **argv, char **envp)
 	char	**parameters1;
 	char	**parameters2;
 	char	**paths;
-	char	*right_path[2];
+	char	*right_path[4];
 
 	if (argc != 5)
 		error();
@@ -90,5 +103,9 @@ int	main(int argc, char **argv, char **envp)
 	paths = get_paths(envp);
 	right_path[0] = check_path(paths, commands[0]);
 	right_path[1] = check_path(paths, commands[1]);
+	if (!right_path[0] || !right_path[1])
+		error();
+	right_path[3] = ft_strjoin("./", argv[1]);
+	right_path[4] = ft_strjoin("./", argv[4]);
 	pipex(parameters1, parameters2, right_path, envp);
 }
