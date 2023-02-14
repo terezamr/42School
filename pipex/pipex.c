@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 13:08:06 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/14 13:12:36 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/14 14:01:53 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,19 @@
 char	*check_path(char **paths, char *command)
 {
 	int		i;
-	char	*path;
+	int		f;
+	char	*path1;
+	char	*path2;
 
 	i = 0;
 	while (paths[i])
 	{
-		path = ft_strjoin(paths[i], "/");
-		path = ft_strjoin(path, command);
-		if (access(path, X_OK) == 0)
-			return (path);
+		path1 = ft_strjoin(paths[i], "/");
+		path2 = ft_strjoin(path1, command);
+		free(path1);
+		if (access(path2, X_OK) == 0)
+			return (path2);
+		free(path2);
 		i++;
 	}
 	return (NULL);
@@ -33,7 +37,7 @@ void	command1(int *fd, char **right_path, char **param, char **envp)
 {
 	int		f;
 
-	f = open(right_path[3], O_RDONLY);
+	f = open(right_path[2], O_RDONLY);
 	if (f == -1)
 		error();
 	dup2(f, STDIN_FILENO);
@@ -47,7 +51,7 @@ void	command2(int *fd, char **right_path, char **param, char **envp)
 {
 	int	f;
 
-	f = open(right_path[4], O_WRONLY | O_TRUNC | O_CREAT);
+	f = open(right_path[3], O_WRONLY | O_TRUNC | O_CREAT);
 	if (f == -1)
 		error();
 	dup2(fd[0], STDIN_FILENO);
@@ -83,8 +87,6 @@ void	pipex(char **param1, char **param2, char **right_path, char **envp)
 	}
 }
 
-
-
 int	main(int argc, char **argv, char **envp)
 {
 	char	*commands[2];
@@ -105,7 +107,9 @@ int	main(int argc, char **argv, char **envp)
 	right_path[1] = check_path(paths, commands[1]);
 	if (!right_path[0] || !right_path[1])
 		error();
-	right_path[3] = ft_strjoin("./", argv[1]);
-	right_path[4] = ft_strjoin("./", argv[4]);
+	right_path[2] = ft_strjoin("./", argv[1]);
+	right_path[3] = ft_strjoin("./", argv[4]);
 	pipex(parameters1, parameters2, right_path, envp);
+	free_double(parameters1, parameters2, paths);
+	free_path(right_path);
 }
