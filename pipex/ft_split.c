@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 14:19:50 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/10 15:18:47 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:13:15 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,32 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	while (*s)
 	{
-		if (*s != c)
+		if (*s != c && *s != 39 && *s != 34)
 		{
 			len = 0;
 			while (*s && *s != c)
+			{
+				s++;
+				len++;
+			}
+			ptr[count++] = ft_substr(s - len, 0, len);
+		}
+		else if (*s == 39)
+		{
+			len = 0;
+			s++;
+			while (*s && *s != 39)
+			{
+				s++;
+				len++;
+			}
+			ptr[count++] = ft_substr(s - len, 0, len);
+		}
+		else if (*s == 34)
+		{
+			len = 0;
+			s++;
+			while (*s && *s != 34)
 			{
 				s++;
 				len++;

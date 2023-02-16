@@ -32,7 +32,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		get_num(char const *str, char c);
 char	**ft_split(char const *s, char c);
 
-void	error(void);
+void	error(int status);
 char	**get_paths(char **envp);
 void	free_double(char **path1, char **path2, char **path3);
 void	free_path(char **right_path);

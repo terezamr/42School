@@ -6,16 +6,24 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:24:51 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/14 13:59:13 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:22:05 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	error(void)
+void	error(int status)
 {
-	write(2, "Error\n", 6);
-	exit(1);
+	if (status == 127)
+		write(2, "command not found\n", 18);
+	else if (status == 1)
+	{
+		write(2, "pipex: input: No such file or directory\n", 40);
+		exit(0);
+	}
+	else
+		write(2, "Error\n", 6);
+	exit(0);
 }
 
 char	**get_paths(char **envp)
