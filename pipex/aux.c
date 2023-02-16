@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:24:51 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/16 13:22:05 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:36:51 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 void	error(int status)
 {
 	if (status == 127)
-		write(2, "command not found\n", 18);
-	else if (status == 1)
 	{
-		write(2, "pipex: input: No such file or directory\n", 40);
-		exit(0);
+		write(2, "command not found\n", 18);
+		exit(127);
 	}
-	else
-		write(2, "Error\n", 6);
-	exit(0);
+	else if (status == 1)
+		write(2, "pipex: input: No such file or directory\n", 40);
+	else if (status == 2)
+		write(2, "command not found\n", 18);
+	exit(1);
 }
 
 char	**get_paths(char **envp)

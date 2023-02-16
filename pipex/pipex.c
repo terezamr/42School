@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 13:08:06 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/16 13:20:09 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:25:20 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,16 @@ char	*check_path(char **paths, char *command)
 	return (NULL);
 }
 
+void	ft_strn(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		write(1, &str[i++], 1);
+	write(1, "\n", 1);
+}
+
 void	command1(int *fd, char **right_path, char **param, char **envp)
 {
 	int		f;
@@ -44,6 +54,7 @@ void	command1(int *fd, char **right_path, char **param, char **envp)
 	close(fd[0]);
 	close(fd[1]);
 	execve(right_path[0], param, envp);
+	perror("pipex");
 }
 
 void	command2(int *fd, char **right_path, char **param, char **envp)
@@ -58,6 +69,7 @@ void	command2(int *fd, char **right_path, char **param, char **envp)
 	close(fd[0]);
 	close(fd[1]);
 	execve(right_path[1], param, envp);
+	perror("pipex");
 }
 
 void	pipex(char **param1, char **param2, char **right_path, char **envp)
@@ -73,17 +85,14 @@ void	pipex(char **param1, char **param2, char **right_path, char **envp)
 	pipe(fd);
 	p1 = fork();
 	if (p1 == -1)
-		error(0);
+		error(1);
 	else if (p1 == 0)
 		command1(fd, right_path, param1, envp);
 	p2 = fork();
 	if (p2 == -1)
-		error(0);
+		error(1);
 	else if (p2 == 0)
-	{
-		wait(NULL);
 		command2(fd, right_path, param2, envp);
-	}
 	close(fd[0]);
 	close(fd[1]);
 	waitpid(p1, &status, 0);
@@ -97,11 +106,9 @@ int	main(int argc, char **argv, char **envp)
 	char	**parameters2;
 	char	**paths;
 	char	*right_path[4];
-	int i;
 
-	i = 0;
 	if (argc != 5)
-		error(0);
+		error(1);
 	paths = NULL;
 	parameters1 = ft_split(argv[2], ' ');
 	parameters2 = ft_split(argv[3], ' ');
@@ -110,11 +117,15 @@ int	main(int argc, char **argv, char **envp)
 	paths = get_paths(envp);
 	right_path[0] = check_path(paths, commands[0]);
 	right_path[1] = check_path(paths, commands[1]);
-	if (!right_path[0] || !right_path[1])
-		error(127);
 	right_path[2] = ft_strjoin("./", argv[1]);
 	right_path[3] = ft_strjoin("./", argv[4]);
 	pipex(parameters1, parameters2, right_path, envp);
 	free_double(parameters1, parameters2, paths);
+	if (!right_path[1])
+	{
+		free_path(right_path);
+		exit(127);
+	}
 	free_path(right_path);
+	exit(0);
 }
