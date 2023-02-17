@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 13:08:06 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/16 17:25:20 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/02/17 19:12:11 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	command1(int *fd, char **right_path, char **param, char **envp)
 {
 	int		f;
 
+	printf("right path %s\n", right_path[2]);
 	f = open(right_path[2], O_RDONLY, 0444);
 	if (f == -1)
 		error(1);
@@ -117,8 +118,14 @@ int	main(int argc, char **argv, char **envp)
 	paths = get_paths(envp);
 	right_path[0] = check_path(paths, commands[0]);
 	right_path[1] = check_path(paths, commands[1]);
-	right_path[2] = ft_strjoin("./", argv[1]);
-	right_path[3] = ft_strjoin("./", argv[4]);
+	if (argv[1][0] != 47 && argv[1][0] != '.')
+		right_path[2] = ft_strjoin("./", argv[1]);
+	else
+		right_path[2] = ft_strjoin("", argv[1]);
+	if (argv[4][0] != 47 && argv[4][0] != '.')
+		right_path[3] = ft_strjoin("./", argv[4]);
+	else
+		right_path[3] = ft_strjoin("", argv[4]);
 	pipex(parameters1, parameters2, right_path, envp);
 	free_double(parameters1, parameters2, paths);
 	if (!right_path[1])
