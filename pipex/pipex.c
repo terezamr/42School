@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 13:08:06 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/17 20:35:16 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/07 14:24:04 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	pipex(char **param1, char **param2, char **right_path, char **envp)
 		error(1);
 	else if (p2 == 0)
 		command2(fd, right_path, param2, envp);
-	close(fd[0]);
+	//close(fd[0]);
 	close(fd[1]);
 	waitpid(p1, &status, 0);
 	waitpid(p2, &status, 0);

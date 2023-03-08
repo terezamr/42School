@@ -5,5 +5,6 @@
 		"stdarg.h": "c",
 		"stdio.h": "c",
 		"push_swap.h": "c"
-	}
+	},
+	"C_Cpp.errorSquiggles": "disabled"
 }
