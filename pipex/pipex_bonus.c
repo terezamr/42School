@@ -6,29 +6,11 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:22:29 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/08 17:00:20 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/09 13:11:04 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-t_list	*create_list(char **argv, int commands, t_list *lst, char **paths)
-{
-	t_list	*aux;
-	int		i;
-
-	i = 0;
-	aux = NULL;
-	lst = ft_lstnew(argv, paths, i, commands);
-	i++;
-	while (i < commands)
-	{
-		aux = ft_lstnew(argv, paths, i, commands);
-		ft_lstadd_back(lst, aux);
-		i++;
-	}
-	return (lst);
-}
 
 t_list	*get_node(t_list *lst, int i)
 {
@@ -63,7 +45,7 @@ void	command(int **fd, t_list *lst, int i, char **envp)
 			error(1);
 		dup2(f_in, STDIN_FILENO);
 		dup2(fd[i][1], STDOUT_FILENO);
-		close(fd[i][1]);
+		close(f_in);
 	}
 	else if (node->outputf)
 	{
@@ -87,6 +69,29 @@ void	command(int **fd, t_list *lst, int i, char **envp)
 	perror("pipex");
 }
 
+int	**create_pipes(int com)
+{
+	int	i;
+	int	f;
+	int	**id;
+
+	i = 0;
+	f = 3;
+	id = 0;
+	id = malloc(sizeof(int *) * (com - 1));
+	if (!id)
+		exit(0);
+	while (i < com - 1)
+	{
+		id[i] = malloc(sizeof(int) * 2);
+		id[i][0] = f;
+		id[i][1] = f + 1;
+		f = f + 2;
+		i++;
+	}
+	return (id);
+}
+
 void	pipex_bonus(t_list *lst, int com, char **envp)
 {
 	int	i;
@@ -96,23 +101,10 @@ void	pipex_bonus(t_list *lst, int com, char **envp)
 
 	i = 0;
 	f = 3;
-	id = malloc(sizeof(int *) * (com - 1) + 1);
-	if (!id)
-		return ;
-	pa = malloc(sizeof(int) * com + 1);
+	pa = malloc(sizeof(int) * com);
 	if (!pa)
 		return ;
-	id[com - 1] = 0;
-	pa[com] = 0;
-	while (i < com - 1)
-	{
-		id[i] = malloc(sizeof(int) * 2);
-		id[i][0] = f;
-		id[i][1] = f + 1;
-		f = f + 2;
-		i++;
-	}
-	i = 0;
+	id = create_pipes(com);
 	while (i < com)
 	{
 		if (i != com - 1)
@@ -126,6 +118,15 @@ void	pipex_bonus(t_list *lst, int com, char **envp)
 			close(id[i][1]);
 		i++;
 	}
+	waitpid(-1, 0, 0);
+	free(pa);
+	i = 0;
+	while (i < com - 1)
+	{
+		free(id[i]);
+		i++;
+	}
+	free(id);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -138,10 +139,18 @@ int	main(int argc, char **argv, char **envp)
 	i = 0;
 	if (argc < 5)
 		error(1);
-	lst = NULL;
+	lst = 0;
 	command_number = argc - 3;
 	paths = get_paths(envp);
 	lst = create_list(argv, command_number, lst, paths);
 	pipex_bonus(lst, command_number, envp);
+	i = 0;
+	while (paths[i])
+	{
+		free(paths[i]);
+		i++;
+	}
+	free(paths);
+	free_lst(lst);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 20:05:04 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/06 19:58:17 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:15:10 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,36 +50,4 @@ void	get_commands(char **param1, char **param2, char **commands)
 {
 	commands[0] = param1[0];
 	commands[1] = param2[0];
-}
-
-void	get_files_bonus(char **right_path, char **argv, int commands)
-{
-	int	i;
-
-	i = 1;
-	if (argv[i][0] != 47 && argv[i][0] != '.')
-		right_path[0] = ft_strjoin("./", argv[i]);
-	else
-		right_path[0] = ft_strjoin("", argv[i]);
-	while (i < commands + 2)
-		i++;
-	if (argv[i][0] != 47 && argv[i][0] != '.')
-		right_path[i - 1] = ft_strjoin("./", argv[i]);
-	else
-		right_path[i - 1] = ft_strjoin("", argv[i]);
-}
-
-char	**get_path_bonus(char **param, char **paths, char **right_p, int max)
-{
-	int		i;
-	char	**aux;
-
-	i = 0;
-	while (i < max)
-	{
-		aux = ft_split(param[i], ' ');
-		right_p[i + 1] = check_path(paths, aux[0]);
-		i++;
-	}
-	return (right_p);
 }

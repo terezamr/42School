@@ -28,7 +28,6 @@ typedef struct s_list
 	char			*inputf;
 	char			*outputf;
 	struct s_list	*next;
-	//struct s_list	*prev;
 }					t_list;
 
 void	command1(int *fd, char **right_path, char **param, char **envp);
@@ -51,12 +50,11 @@ void	free_path(char **right_path);
 char	*check_path(char **paths, char *command);
 void	get_rightp(char **right_path, char **paths, char **com, char **argv);
 void	get_commands(char **param1, char **param2, char **commands);
-//char	**get_path_bonus(char **param, char **paths, char **right_paths, int max);
-//oid	get_files_bonus(char **paths, char **argv, int command_number);
 
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstnew(char **str, char **paths, int i, int commands);
 void	ft_lstadd_back(t_list *lst, t_list *new);
-t_list	*go_back(t_list *stack);
+t_list	*create_list(char **argv, int commands, t_list *lst, char **paths);
+void	free_lst(t_list *lst);
 
 #endif
