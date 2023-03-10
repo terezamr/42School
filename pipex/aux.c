@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:24:51 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/10 15:04:06 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:43:29 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,6 @@ void	error(int status)
 	exit(1);
 }
 
-char	**get_paths(char **envp)
-{
-	int		i;
-	char	**paths;
-	char	*aux;
-
-	i = 0;
-	while (envp[i])
-	{
-		aux = ft_strnstr(envp[i], "PATH");
-		if (aux)
-			paths = ft_split(aux, ':');
-		i++;
-	}
-	return (paths);
-}
-
 void	free_double(char **path1)
 {
 	int	i;
@@ -65,4 +48,31 @@ void	free_double(char **path1)
 	}
 	free(path1[i]);
 	free(path1);
+}
+
+void	free_lst(t_list *lst)
+{
+	int		i;
+	t_list	*ptr;
+
+	while (lst)
+	{
+		i = 0;
+		ptr = lst->next;
+		free(lst->path);
+		if (lst->inputf)
+			free(lst->inputf);
+		if (lst->outputf)
+			free(lst->outputf);
+		while (lst->param[i])
+		{
+			free(lst->param[i]);
+			i++;
+		}
+		free(lst->param[i]);
+		free(lst->param);
+		free(lst);
+		lst = ptr;
+	}
+	free(lst);
 }

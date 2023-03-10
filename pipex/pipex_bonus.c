@@ -6,11 +6,11 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:22:29 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/09 13:11:04 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:54:10 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 t_list	*get_node(t_list *lst, int i)
 {
@@ -27,7 +27,7 @@ t_list	*get_node(t_list *lst, int i)
 	return (node);
 }
 
-void	command(int **fd, t_list *lst, int i, char **envp)
+void	command_bonus(int **fd, t_list *lst, int i, char **envp)
 {
 	t_list	*node;
 	int		f_in;
@@ -113,7 +113,7 @@ void	pipex_bonus(t_list *lst, int com, char **envp)
 		if (pa[i] == -1)
 			error(1);
 		else if (pa[i] == 0)
-			command(id, lst, i, envp);
+			command_bonus(id, lst, i, envp);
 		if (i != com - 1)
 			close(id[i][1]);
 		i++;
@@ -142,14 +142,8 @@ int	main(int argc, char **argv, char **envp)
 	lst = 0;
 	command_number = argc - 3;
 	paths = get_paths(envp);
-	lst = create_list(argv, command_number, lst, paths);
+	lst = create_list_bonus(argv, command_number, lst, paths);
 	pipex_bonus(lst, command_number, envp);
-	i = 0;
-	while (paths[i])
-	{
-		free(paths[i]);
-		i++;
-	}
 	free(paths);
 	free_lst(lst);
 	return (0);

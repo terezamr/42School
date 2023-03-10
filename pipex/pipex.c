@@ -6,11 +6,18 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 13:08:06 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/10 15:04:01 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:29:22 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	do_dups(int fin, int fout, int fd_close)
+{
+	dup2(fin, STDIN_FILENO);
+	dup2(fout, STDOUT_FILENO);
+	close(fd_close);
+}
 
 void	command(int *fd, t_list *lst, char **envp, int i)
 {
@@ -21,29 +28,24 @@ void	command(int *fd, t_list *lst, char **envp, int i)
 	if (i == 0)
 	{
 		node = lst;
-		close(fd[0]);
 		f_in = open(node->inputf, O_RDONLY, 0444);
 		if (f_in == -1)
 			error(1);
-		dup2(f_in, STDIN_FILENO);
-		dup2(fd[1], STDOUT_FILENO);
+		do_dups(f_in, fd[1], fd[0]);
 		close(f_in);
 	}
 	else
 	{
 		node = lst->next;
-		close(fd[1]);
 		f_out = open(node->outputf, O_RDWR | O_TRUNC | O_CREAT, 0644);
 		if (f_out == -1)
 			error(1);
-		dup2(fd[0], STDIN_FILENO);
-		dup2(f_out, STDOUT_FILENO);
+		do_dups(fd[0], f_out, fd[1]);
 		close (f_out);
 	}
 	execve(node->path, node->param, envp);
 	perror("pipex");
 }
-
 
 void	pipex(t_list *lst, char **envp)
 {
@@ -67,7 +69,6 @@ void	pipex(t_list *lst, char **envp)
 	close(fd[1]);
 	waitpid(p1, &status, 0);
 	waitpid(p2, &status, 0);
-	//waitpid(-1, 0, 0);
 }
 
 int	main(int argc, char **argv, char **envp)
