@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:24:51 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/10 15:43:29 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:23:14 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ void	free_double(char **path1)
 		free(path1[i]);
 		i++;
 	}
-	free(path1[i]);
-	free(path1);
+	// free(path1[i]);
+	if (path1)
+		free(path1);
 }
 
 void	free_lst(t_list *lst)
@@ -64,13 +65,14 @@ void	free_lst(t_list *lst)
 			free(lst->inputf);
 		if (lst->outputf)
 			free(lst->outputf);
-		while (lst->param[i])
-		{
-			free(lst->param[i]);
-			i++;
-		}
-		free(lst->param[i]);
-		free(lst->param);
+		// while (lst->param[i])
+		// {
+		// 	free(lst->param[i]);
+		// 	i++;
+		// }
+		// free(lst->param);
+		free_double(lst->param);
+		//free(lst->param[i]);
 		free(lst);
 		lst = ptr;
 	}

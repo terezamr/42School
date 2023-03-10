@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 13:08:06 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/10 15:29:22 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:27:14 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int	main(int argc, char **argv, char **envp)
 	command_number = 2;
 	lst = create_list(argv, command_number, lst, paths);
 	pipex(lst, envp);
+	waitpid(-1, 0, 0);
 	free_double(paths);
 	free_lst(lst);
 	exit(0);

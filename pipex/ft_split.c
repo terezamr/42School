@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 11:38:46 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/10 15:04:17 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:16:18 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,16 @@ char	**ft_split(char *str, char c)
 	char	**array;
 
 	i = 0;
+	if (!str || !str[0])
+		return (NULL);
 	words = get_num_words(str, c);
+	array = 0;
 	array = malloc(sizeof(char *) * words + 1);
+	if (!array)
+	{
+		free_double(array);
+		return (NULL);
+	}
 	while (*str && *str == c)
 		str++;
 	while (*str)
@@ -73,6 +81,6 @@ char	**ft_split(char *str, char c)
 			str++;
 		i++;
 	}
-	array[i] = 0;
+	array[i] = (char *) NULL;
 	return (array);
 }

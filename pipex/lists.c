@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:37:07 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/10 15:53:13 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:12:45 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ t_list	*ft_lstnew(char **str, char **paths, int i, int com)
 	new->param = ft_split(str[i + 2], ' ');
 	new->command = new->param[0];
 	new->path = check_path(paths, new->command);
+	if (!new->path)
+		return (NULL);
 	if (i == 0)
 	{
 		if (str[1][0] != 47 && str[1][0] != '.')
