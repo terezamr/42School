@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:24:51 by mvicente          #+#    #+#             */
-/*   Updated: 2023/02/17 20:19:12 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:04:06 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	**get_paths(char **envp)
 	return (paths);
 }
 
-void	free_double(char **path1, char **path2, char **path3)
+void	free_double(char **path1)
 {
 	int	i;
 
@@ -63,27 +63,6 @@ void	free_double(char **path1, char **path2, char **path3)
 		free(path1[i]);
 		i++;
 	}
+	free(path1[i]);
 	free(path1);
-	i = 0;
-	while (path2[i])
-	{
-		free(path2[i]);
-		i++;
-	}
-	free(path2);
-	i = 0;
-	while (path3[i])
-	{
-		free(path3[i]);
-		i++;
-	}
-	free(path3);
-}
-
-void	free_path(char **right_path)
-{
-	free(right_path[0]);
-	free(right_path[1]);
-	free(right_path[2]);
-	free(right_path[3]);
 }
