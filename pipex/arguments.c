@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 20:05:04 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/10 17:23:24 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/12 13:08:04 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	**get_paths(char **envp)
 	char	*aux;
 
 	i = 0;
+	paths = 0;
 	while (envp[i])
 	{
 		aux = ft_strnstr(envp[i], "PATH");

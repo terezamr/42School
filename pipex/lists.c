@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:37:07 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/10 17:12:45 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/12 15:57:39 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_list	*ft_lstnew(char **str, char **paths, int i, int com)
 {
 	t_list	*new;
 
+	printf("i %i\n", i);
 	new = malloc(sizeof(t_list));
 	if (!new)
 		return (0);
@@ -45,21 +46,16 @@ t_list	*ft_lstnew(char **str, char **paths, int i, int com)
 	new->command = new->param[0];
 	new->path = check_path(paths, new->command);
 	if (!new->path)
+	{
+		free_double(new->param);
+		free(new);
 		return (NULL);
+	}
 	if (i == 0)
-	{
-		if (str[1][0] != 47 && str[1][0] != '.')
-			new->inputf = ft_strjoin("./", str[1]);
-		else
-			new->inputf = ft_strjoin("", str[1]);
-	}
+		new->inputf = ft_strjoin("./", str[1]);
 	if (i == com - 1)
-	{
-		if (str[i + 3][0] != 47 && str[i + 3][0] != '.')
-			new->outputf = ft_strjoin("./", str[i + 3]);
-		else
-			new->outputf = ft_strjoin("", str[i + 3]);
-	}
+		new->outputf = ft_strjoin("./", str[i + 3]);
+	printf("path in %s\n", new->inputf);
 	return (new);
 }
 
@@ -83,8 +79,20 @@ t_list	*create_list(char **argv, int commands, t_list *lst, char **paths)
 	t_list	*aux;
 
 	lst = ft_lstnew(argv, paths, 0, commands);
+	if (!lst)
+		error(2);
 	aux = ft_lstnew(argv, paths, 1, commands);
-	ft_lstadd_back(lst, aux);
+	if (!aux)
+	{
+		printf("check\n");
+		free_lst(lst);
+		error(2);
+		return (NULL);
+	}
+	if (lst)
+		ft_lstadd_back(lst, aux);
+	else
+		return (aux);
 	return (lst);
 }
 
