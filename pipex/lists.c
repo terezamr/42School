@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:37:07 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/12 15:57:39 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/13 15:16:48 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_list	*ft_lstnew(char **str, char **paths, int i, int com)
 {
 	t_list	*new;
 
-	printf("i %i\n", i);
 	new = malloc(sizeof(t_list));
 	if (!new)
 		return (0);
@@ -45,17 +44,17 @@ t_list	*ft_lstnew(char **str, char **paths, int i, int com)
 	new->param = ft_split(str[i + 2], ' ');
 	new->command = new->param[0];
 	new->path = check_path(paths, new->command);
-	if (!new->path)
-	{
-		free_double(new->param);
-		free(new);
-		return (NULL);
-	}
+	// if (!new->path)
+	// {
+	// 	error(2);
+	// 	free_double(new->param);
+	// 	free(new);
+	// 	return (NULL);
+	// }
 	if (i == 0)
-		new->inputf = ft_strjoin("./", str[1]);
+		new->inputf = str[1];
 	if (i == com - 1)
-		new->outputf = ft_strjoin("./", str[i + 3]);
-	printf("path in %s\n", new->inputf);
+		new->outputf = str[i + 3];
 	return (new);
 }
 
@@ -79,20 +78,8 @@ t_list	*create_list(char **argv, int commands, t_list *lst, char **paths)
 	t_list	*aux;
 
 	lst = ft_lstnew(argv, paths, 0, commands);
-	if (!lst)
-		error(2);
 	aux = ft_lstnew(argv, paths, 1, commands);
-	if (!aux)
-	{
-		printf("check\n");
-		free_lst(lst);
-		error(2);
-		return (NULL);
-	}
-	if (lst)
-		ft_lstadd_back(lst, aux);
-	else
-		return (aux);
+	ft_lstadd_back(lst, aux);
 	return (lst);
 }
 
@@ -104,11 +91,22 @@ t_list	*create_list_bonus(char **argv, int commands, t_list *lst, char **paths)
 	i = 0;
 	aux = NULL;
 	lst = ft_lstnew(argv, paths, i, commands);
+	if (!lst)
+		error(2);
 	i++;
 	while (i < commands)
 	{
 		aux = ft_lstnew(argv, paths, i, commands);
-		ft_lstadd_back(lst, aux);
+		if (!aux)
+		{
+			free_lst(lst);
+			error(2);
+			return (NULL);
+		}
+		if (lst)
+			ft_lstadd_back(lst, aux);
+		else
+			lst = aux;
 		i++;
 	}
 	return (lst);

@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:24:51 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/12 15:30:25 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/13 15:41:17 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	error(int status)
 		exit(127);
 	}
 	else if (status == 1)
-		write(2, "Pipex: No such file or directory\n", 40);
+		write(2, "No such file or directory\n", 26);
 	else if (status == 2)
 		write(2, "command not found\n", 18);
 	else if (status == 10)
@@ -61,10 +61,6 @@ void	free_lst(t_list *lst)
 		i = 0;
 		ptr = lst->next;
 		free(lst->path);
-		if (lst->inputf)
-			free(lst->inputf);
-		if (lst->outputf)
-			free(lst->outputf);
 		free_double(lst->param);
 		free(lst);
 		lst = ptr;

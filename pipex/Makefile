@@ -6,14 +6,14 @@
 #    By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/26 12:41:51 by mvicente          #+#    #+#              #
-#    Updated: 2023/03/10 11:53:52 by mvicente         ###   ########.fr        #
+#    Updated: 2023/03/13 15:13:53 by mvicente         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror -g
 
 RM = rm -f
 

@@ -42,6 +42,7 @@ char	**ft_split(char *str, char c);
 void	ft_strn(char *str);
 void	error(int status);
 char	**get_paths(char **envp);
+void	check_files(char *str);
 void	free_double(char **path1);
 void	free_path(char **right_path);
 

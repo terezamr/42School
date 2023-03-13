@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:22:29 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/10 15:54:10 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/13 15:17:14 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ t_list	*get_node(t_list *lst, int i)
 	return (node);
 }
 
+void	do_dups(int fin, int fout, int fd_close)
+{
+	dup2(fin, STDIN_FILENO);
+	dup2(fout, STDOUT_FILENO);
+	if (fd_close)
+		close(fd_close);
+}
+
 void	command_bonus(int **fd, t_list *lst, int i, char **envp)
 {
 	t_list	*node;
@@ -42,31 +50,33 @@ void	command_bonus(int **fd, t_list *lst, int i, char **envp)
 		close(fd[i][0]);
 		f_in = open(node->inputf, O_RDONLY, 0444);
 		if (f_in == -1)
+		{
 			error(1);
-		dup2(f_in, STDIN_FILENO);
-		dup2(fd[i][1], STDOUT_FILENO);
-		close(f_in);
+			exit(127);
+		}
+		do_dups(f_in, fd[i][1], f_in);
 	}
 	else if (node->outputf)
 	{
 		close(fd[i - 1][1]);
 		f_out = open(node->outputf, O_RDWR | O_TRUNC | O_CREAT, 0644);
 		if (f_out == -1)
+		{
 			error(1);
-		dup2(fd[i - 1][0], STDIN_FILENO);
-		close(fd[i - 1][0]);
-		dup2(f_out, STDOUT_FILENO);
+			exit(127);
+		}
+		do_dups(fd[i - 1][0], f_out, fd[i - 1][0]);
 		close (f_out);
 	}
 	else
 	{
 		close(fd[i][0]);
 		close(fd[i - 1][1]);
-		dup2(fd[i - 1][0], STDIN_FILENO);
-		dup2(fd[i][1], STDOUT_FILENO);
+		do_dups(fd[i - 1][0], fd[i][1], 0);
 	}
 	execve(node->path, node->param, envp);
 	perror("pipex");
+	exit(127);
 }
 
 int	**create_pipes(int com)
@@ -111,7 +121,10 @@ void	pipex_bonus(t_list *lst, int com, char **envp)
 			pipe(id[i]);
 		pa[i] = fork();
 		if (pa[i] == -1)
-			error(1);
+		{
+			error(10);
+			return ;
+		}
 		else if (pa[i] == 0)
 			command_bonus(id, lst, i, envp);
 		if (i != com - 1)
@@ -138,13 +151,15 @@ int	main(int argc, char **argv, char **envp)
 
 	i = 0;
 	if (argc < 5)
-		error(1);
+		error(127);
 	lst = 0;
 	command_number = argc - 3;
+	check_files(argv);
 	paths = get_paths(envp);
 	lst = create_list_bonus(argv, command_number, lst, paths);
-	pipex_bonus(lst, command_number, envp);
-	free(paths);
+	if (lst)
+		pipex_bonus(lst, command_number, envp);
+	free_double(paths);
 	free_lst(lst);
-	return (0);
+	exit(0);
 }

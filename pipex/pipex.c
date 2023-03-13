@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 13:08:06 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/12 16:02:51 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/13 15:48:49 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,25 @@
 void	do_dups(int fin, int fout, int fd_close)
 {
 	dup2(fin, STDIN_FILENO);
-	(void)fout;
-	//dup2(fout, STDOUT_FILENO);
+	dup2(fout, STDOUT_FILENO);
 	close(fd_close);
+}
+
+int	open_f(t_list *node, int flag)
+{
+	int		f;
+
+	f = -1;
+	if (flag == 0)
+		f = open(node->inputf, O_RDONLY, 0444);
+	else if (flag == 1)
+		f = open(node->outputf, O_RDWR | O_TRUNC | O_CREAT, 0644);
+	if (f == -1)
+	{
+		error(10);
+		exit(127);
+	}
+	return (f);
 }
 
 void	command(int *fd, t_list *lst, char **envp, int i)
@@ -26,33 +42,26 @@ void	command(int *fd, t_list *lst, char **envp, int i)
 	int		f_in;
 	int		f_out;
 
+	node = lst;
 	if (i == 0)
 	{
-		node = lst;
-		f_in = open(node->inputf, O_RDONLY, 0444);
-		if (f_in == -1)
-		{
-			error(10);
-			exit(0);
-		}
+		if (!node->inputf)
+			exit (0);
+		f_in = open_f(node, 0);
 		do_dups(f_in, fd[1], fd[0]);
 		close(f_in);
 	}
 	else
 	{
 		node = lst->next;
-		printf("check wc \n");	
-		f_out = open(node->outputf, O_RDWR | O_TRUNC | O_CREAT, 0644);
-		if (f_out == -1)
-		{
-			error(10);
-			return ;
-		}
+		f_out = open_f(node, 1);
 		do_dups(fd[0], f_out, fd[1]);
 		close (f_out);
 	}
 	execve(node->path, node->param, envp);
-	perror("pipex");
+	perror(node->param[0]);
+	free_lst(lst);
+	exit(127);
 }
 
 void	pipex(t_list *lst, char **envp)
@@ -65,7 +74,6 @@ void	pipex(t_list *lst, char **envp)
 	p1 = fork();
 	if (p1 == -1)
 	{
-		printf("check 1\n");
 		error(10);
 		return ;
 	}
@@ -74,7 +82,6 @@ void	pipex(t_list *lst, char **envp)
 	p2 = fork();
 	if (p2 == -1)
 	{
-		printf("check 2\n");
 		error(10);
 		return ;
 	}
@@ -83,36 +90,6 @@ void	pipex(t_list *lst, char **envp)
 	close(fd[0]);
 	close(fd[1]);
 	waitpid(-1, NULL, WNOHANG);
-	//waitpid(p2, NULL, 0);
-}
-
-void	check_files(char **argv, int com)
-{
-	int		f_in;
-	int		f_out;
-	char	*path;
-
-	path = ft_strjoin("./", argv[1]);
-	f_in = open(path, O_RDONLY, 0444);
-	if (f_in == -1)
-	{
-		free(path);
-		error(1);
-		exit(0);
-	}
-	free(path);
-	path = ft_strjoin("./", argv[com + 2]);
-	f_out = open(path, O_RDWR | O_TRUNC | O_CREAT, 0644);
-	if (f_out == -1)
-	{
-		free(path);
-		close(f_in);
-		error(1);
-		exit(0);
-	}
-	close(f_in);
-	close(f_out);
-	free(path);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -122,16 +99,16 @@ int	main(int argc, char **argv, char **envp)
 	int		command_number;
 
 	if (argc != 5)
-		exit (0);
+		exit (127);
 	paths = 0;
 	lst = 0;
 	command_number = 2;
-	check_files(argv, command_number);
+	check_files(argv[1]);
 	paths = get_paths(envp);
 	lst = create_list(argv, command_number, lst, paths);
+	free_double(paths);
 	if (lst)
 		pipex(lst, envp);
-	free_double(paths);
 	free_lst(lst);
 	exit(0);
 }

@@ -38,6 +38,7 @@ void	pipex_bonus(t_list *lst, int com, char **envp);
 
 char	*check_path(char **paths, char *command);
 char	**get_paths(char **envp);
+void	check_files(char **argv);
 
 void	ft_strn(char *str);
 void	error(int status);
