@@ -6,22 +6,11 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:37:07 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/13 15:16:48 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/13 15:55:52 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-t_list	*ft_lstlast(t_list *lst)
-{
-	while (lst)
-	{	
-		if (lst->next == NULL)
-			return (lst);
-		lst = lst->next;
-	}
-	return (lst);
-}
 
 void	initialize_lst(t_list **new)
 {
@@ -44,13 +33,6 @@ t_list	*ft_lstnew(char **str, char **paths, int i, int com)
 	new->param = ft_split(str[i + 2], ' ');
 	new->command = new->param[0];
 	new->path = check_path(paths, new->command);
-	// if (!new->path)
-	// {
-	// 	error(2);
-	// 	free_double(new->param);
-	// 	free(new);
-	// 	return (NULL);
-	// }
 	if (i == 0)
 		new->inputf = str[1];
 	if (i == com - 1)
@@ -83,20 +65,20 @@ t_list	*create_list(char **argv, int commands, t_list *lst, char **paths)
 	return (lst);
 }
 
-t_list	*create_list_bonus(char **argv, int commands, t_list *lst, char **paths)
+t_list	*create_list_bonus(char **argv, int com, t_list *lst, char **paths)
 {
 	t_list	*aux;
 	int		i;
 
 	i = 0;
 	aux = NULL;
-	lst = ft_lstnew(argv, paths, i, commands);
+	lst = ft_lstnew(argv, paths, i, com);
 	if (!lst)
 		error(2);
 	i++;
-	while (i < commands)
+	while (i < com)
 	{
-		aux = ft_lstnew(argv, paths, i, commands);
+		aux = ft_lstnew(argv, paths, i, com);
 		if (!aux)
 		{
 			free_lst(lst);

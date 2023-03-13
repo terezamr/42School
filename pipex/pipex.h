@@ -30,28 +30,34 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+char	*ft_strdup(const char *s);
+char	*check_path(char **paths, char *command);
+char	**get_paths(char **envp);
+void	check_files(char *str);
+
+void	ft_strn(char *str);
+void	error(int status);
+t_list	*ft_lstlast(t_list *lst);
+void	free_double(char **path1);
+void	free_lst(t_list *lst);
+
+int		get_num_words(char *str, char c);
+char	*get_word(char *str, char c);
+char	**ft_split(char *str, char c);
+
+void	initialize_lst(t_list **new);
+t_list	*ft_lstnew(char **str, char **paths, int i, int commands);
+void	ft_lstadd_back(t_list *lst, t_list *new);
+t_list	*create_list(char **argv, int commands, t_list *lst, char **paths);
+
+void	do_dups(int fin, int fout, int fd_close);
+int		open_f(t_list *node, int flag);
 void	command(int *fd, t_list *lst, char **envp, int i);
 void	pipex(t_list *lst, char **envp);
 
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strnstr(const char *big, const char *little);
-
-char	**ft_split(char *str, char c);
-
-void	ft_strn(char *str);
-void	error(int status);
-char	**get_paths(char **envp);
-void	check_files(char *str);
-void	free_double(char **path1);
-void	free_path(char **right_path);
-
-char	*check_path(char **paths, char *command);
-
-t_list	*ft_lstlast(t_list *lst);
-t_list	*ft_lstnew(char **str, char **paths, int i, int commands);
-void	ft_lstadd_back(t_list *lst, t_list *new);
-t_list	*create_list(char **argv, int commands, t_list *lst, char **paths);
-void	free_lst(t_list *lst);
 
 #endif

@@ -38,7 +38,9 @@ void	pipex_bonus(t_list *lst, int com, char **envp);
 
 char	*check_path(char **paths, char *command);
 char	**get_paths(char **envp);
-void	check_files(char **argv);
+void	check_files(char *str);
+
+void	free_pipes(int **id, int *pa, int com);
 
 void	ft_strn(char *str);
 void	error(int status);
@@ -53,6 +55,6 @@ t_list	*ft_lstlast(t_list *lst);
 void	initialize_lst(t_list **new);
 t_list	*ft_lstnew(char **str, char **paths, int i, int com);
 void	ft_lstadd_back(t_list *lst, t_list *new);
-t_list	*create_list_bonus(char **argv, int commands, t_list *lst, char **paths);
+t_list	*create_list_bonus(char **argv, int com, t_list *lst, char **paths);
 
 #endif

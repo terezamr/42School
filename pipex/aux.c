@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:24:51 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/13 15:41:17 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:12:53 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,17 @@ void	error(int status)
 		write(2, "command not found\n", 18);
 	else if (status == 10)
 		write(2, "Error\n", 6);
+}
+
+t_list	*ft_lstlast(t_list *lst)
+{
+	while (lst)
+	{	
+		if (lst->next == NULL)
+			return (lst);
+		lst = lst->next;
+	}
+	return (lst);
 }
 
 void	free_double(char **path1)

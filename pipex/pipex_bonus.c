@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:22:29 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/13 15:17:14 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:23:28 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,29 +79,6 @@ void	command_bonus(int **fd, t_list *lst, int i, char **envp)
 	exit(127);
 }
 
-int	**create_pipes(int com)
-{
-	int	i;
-	int	f;
-	int	**id;
-
-	i = 0;
-	f = 3;
-	id = 0;
-	id = malloc(sizeof(int *) * (com - 1));
-	if (!id)
-		exit(0);
-	while (i < com - 1)
-	{
-		id[i] = malloc(sizeof(int) * 2);
-		id[i][0] = f;
-		id[i][1] = f + 1;
-		f = f + 2;
-		i++;
-	}
-	return (id);
-}
-
 void	pipex_bonus(t_list *lst, int com, char **envp)
 {
 	int	i;
@@ -132,14 +109,7 @@ void	pipex_bonus(t_list *lst, int com, char **envp)
 		i++;
 	}
 	waitpid(-1, 0, 0);
-	free(pa);
-	i = 0;
-	while (i < com - 1)
-	{
-		free(id[i]);
-		i++;
-	}
-	free(id);
+	free_pipes(id, pa, com);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -154,7 +124,7 @@ int	main(int argc, char **argv, char **envp)
 		error(127);
 	lst = 0;
 	command_number = argc - 3;
-	check_files(argv);
+	check_files(argv[1]);
 	paths = get_paths(envp);
 	lst = create_list_bonus(argv, command_number, lst, paths);
 	if (lst)
