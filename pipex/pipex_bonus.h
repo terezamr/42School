@@ -40,7 +40,7 @@ char	*check_path(char **paths, char *command);
 char	**get_paths(char **envp);
 void	check_files(char *str);
 
-void	free_pipes(int **id, int *pa, int com);
+void	free_pipes(int **id, int com);
 
 void	ft_strn(char *str);
 void	error(int status);

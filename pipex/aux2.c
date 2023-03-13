@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aux_bonux.c                                        :+:      :+:    :+:   */
+/*   aux2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:56:26 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/13 16:02:40 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/13 17:36:14 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ int	**create_pipes(int com)
 	return (id);
 }
 
-void	free_pipes(int **id, int *pa, int com)
+void	free_pipes(int **id, int com)
 {
 	int	i;
 
 	i = 0;
 	while (i < com - 1)
 	{
+		printf("i %i\n", i);
 		free(id[i]);
 		i++;
 	}
 	free(id);
-	free(pa);
 }

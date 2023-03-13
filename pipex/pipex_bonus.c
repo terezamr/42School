@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:22:29 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/13 16:23:28 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/13 17:37:21 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,9 @@ void	command_bonus(int **fd, t_list *lst, int i, char **envp)
 		do_dups(fd[i - 1][0], fd[i][1], 0);
 	}
 	execve(node->path, node->param, envp);
-	perror("pipex");
+	perror(node->param[0]);
+	free_lst(lst);
+	free_pipes(fd, i);
 	exit(127);
 }
 
@@ -84,32 +86,29 @@ void	pipex_bonus(t_list *lst, int com, char **envp)
 	int	i;
 	int	f;
 	int	**id;
-	int	*pa;
+	int	pa;
 
 	i = 0;
 	f = 3;
-	pa = malloc(sizeof(int) * com);
-	if (!pa)
-		return ;
 	id = create_pipes(com);
 	while (i < com)
 	{
 		if (i != com - 1)
 			pipe(id[i]);
-		pa[i] = fork();
-		if (pa[i] == -1)
+		pa = fork();
+		if (pa == -1)
 		{
 			error(10);
 			return ;
 		}
-		else if (pa[i] == 0)
+		else if (pa == 0)
 			command_bonus(id, lst, i, envp);
 		if (i != com - 1)
 			close(id[i][1]);
 		i++;
 	}
 	waitpid(-1, 0, 0);
-	free_pipes(id, pa, com);
+	free_pipes(id, com);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -127,9 +126,9 @@ int	main(int argc, char **argv, char **envp)
 	check_files(argv[1]);
 	paths = get_paths(envp);
 	lst = create_list_bonus(argv, command_number, lst, paths);
+	free_double(paths);
 	if (lst)
 		pipex_bonus(lst, command_number, envp);
-	free_double(paths);
 	free_lst(lst);
 	exit(0);
 }
