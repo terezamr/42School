@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aux2.c                                             :+:      :+:    :+:   */
+/*   aux_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:56:26 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/14 10:31:43 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/14 11:10:39 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,6 @@ int	get_com(t_list *lst)
 	return (i);
 }
 
-void	error_function(t_list *lst, char *command, int **fd)
-{
-	get_com(lst);
-	perror(command);
-	free_pipes(fd, get_com(lst));
-	free_lst(lst);
-	exit(127);
-}
-
 int	open_f(t_list *node, int flag)
 {
 	int		f;
@@ -60,8 +51,19 @@ int	open_f(t_list *node, int flag)
 		f = open(node->outputf, O_RDWR | O_TRUNC | O_CREAT, 0644);
 	if (f == -1)
 	{
-		error(10);
+		error(1);
 		exit(127);
 	}
 	return (f);
+}
+
+t_list	*ft_lstlast(t_list *lst)
+{
+	while (lst)
+	{	
+		if (lst->next == NULL)
+			return (lst);
+		lst = lst->next;
+	}
+	return (lst);
 }

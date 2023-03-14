@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aux.c                                              :+:      :+:    :+:   */
+/*   free_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:24:51 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/14 11:15:12 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/14 11:14:27 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	error(int status)
 {
@@ -20,15 +20,13 @@ void	error(int status)
 		write(2, "Error\n", 6);
 }
 
-t_list	*ft_lstlast(t_list *lst)
+void	error_function(t_list *lst, char *command, int **fd)
 {
-	while (lst)
-	{	
-		if (lst->next == NULL)
-			return (lst);
-		lst = lst->next;
-	}
-	return (lst);
+	get_com(lst);
+	perror(command);
+	free_pipes(fd, get_com(lst));
+	free_lst(lst);
+	exit(127);
 }
 
 void	free_double(char **path1)

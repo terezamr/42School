@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lists.c                                            :+:      :+:    :+:   */
+/*   lists_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:37:07 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/14 10:47:47 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/14 11:13:42 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	initialize_lst(t_list **new)
 {
@@ -55,12 +55,23 @@ void	ft_lstadd_back(t_list *lst, t_list *new)
 	}
 }
 
-t_list	*create_list(char **argv, int commands, t_list *lst, char **paths)
+t_list	*create_list_bonus(char **argv, int com, t_list *lst, char **paths)
 {
 	t_list	*aux;
+	int		i;
 
-	lst = ft_lstnew(argv, paths, 0, commands);
-	aux = ft_lstnew(argv, paths, 1, commands);
-	ft_lstadd_back(lst, aux);
+	i = 0;
+	aux = NULL;
+	lst = ft_lstnew(argv, paths, i, com);
+	i++;
+	while (i < com)
+	{
+		aux = ft_lstnew(argv, paths, i, com);
+		if (lst)
+			ft_lstadd_back(lst, aux);
+		else
+			lst = aux;
+		i++;
+	}
 	return (lst);
 }

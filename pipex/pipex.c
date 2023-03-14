@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 13:08:06 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/13 15:48:49 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/14 11:17:13 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	open_f(t_list *node, int flag)
 		f = open(node->outputf, O_RDWR | O_TRUNC | O_CREAT, 0644);
 	if (f == -1)
 	{
-		error(10);
+		error(1);
 		exit(127);
 	}
 	return (f);
@@ -99,7 +99,10 @@ int	main(int argc, char **argv, char **envp)
 	int		command_number;
 
 	if (argc != 5)
+	{
+		error(10);
 		exit (127);
+	}
 	paths = 0;
 	lst = 0;
 	command_number = 2;

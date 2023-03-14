@@ -36,7 +36,6 @@ char	*check_path(char **paths, char *command);
 char	**get_paths(char **envp);
 void	check_files(char *str);
 
-void	ft_strn(char *str);
 void	error(int status);
 t_list	*ft_lstlast(t_list *lst);
 void	free_double(char **path1);

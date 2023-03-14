@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:22:29 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/14 10:30:16 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/14 11:09:49 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,10 @@ int	main(int argc, char **argv, char **envp)
 
 	i = 0;
 	if (argc < 5)
-		error(127);
+	{
+		error(10);
+		exit(127);
+	}
 	lst = 0;
 	command_number = argc - 3;
 	check_files(argv[1]);
