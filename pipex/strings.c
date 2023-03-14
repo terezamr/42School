@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 11:53:19 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/13 15:55:09 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/14 10:26:17 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,14 @@ char	*ft_strnstr(const char *big, const char *little)
 		count++;
 	}
 	return (NULL);
+}
+
+void	ft_strn(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		write(1, &str[i++], 1);
+	write(1, "\n", 1);
 }

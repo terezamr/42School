@@ -6,21 +6,11 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:24:51 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/13 16:12:53 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/14 10:26:12 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	ft_strn(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		write(1, &str[i++], 1);
-	write(1, "\n", 1);
-}
 
 void	error(int status)
 {
@@ -64,12 +54,10 @@ void	free_double(char **path1)
 
 void	free_lst(t_list *lst)
 {
-	int		i;
 	t_list	*ptr;
 
 	while (lst)
 	{
-		i = 0;
 		ptr = lst->next;
 		free(lst->path);
 		free_double(lst->param);

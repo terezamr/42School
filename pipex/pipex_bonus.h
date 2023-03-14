@@ -30,17 +30,21 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
-t_list	*get_node(t_list *lst, int i);
 void	do_dups(int fin, int fout, int fd_close);
 void	command_bonus(int **fd, t_list *lst, int i, char **envp);
-int		**create_pipes(int com);
 void	pipex_bonus(t_list *lst, int com, char **envp);
 
 char	*check_path(char **paths, char *command);
 char	**get_paths(char **envp);
 void	check_files(char *str);
 
+int		**create_pipes(int com);
 void	free_pipes(int **id, int com);
+
+t_list	*get_node(t_list *lst, int i);
+int		get_com(t_list *lst);
+void	error_function(t_list *lst, char *command, int **fd);
+int		open_f(t_list *node, int flag);
 
 void	ft_strn(char *str);
 void	error(int status);
