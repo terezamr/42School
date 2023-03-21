@@ -6,7 +6,7 @@
 /*   By: mvicente <mvicente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 13:08:06 by mvicente          #+#    #+#             */
-/*   Updated: 2023/03/14 11:17:13 by mvicente         ###   ########.fr       */
+/*   Updated: 2023/03/21 15:15:21 by mvicente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	main(int argc, char **argv, char **envp)
 	paths = 0;
 	lst = 0;
 	command_number = 2;
-	check_files(argv[1]);
+	//check_files(argv[1]);
 	paths = get_paths(envp);
 	lst = create_list(argv, command_number, lst, paths);
 	free_double(paths);
