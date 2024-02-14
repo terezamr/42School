@@ -1,4 +1,4 @@
-The following projects were developed during 42 school's cursus:
+The following projects were developed during 42 school's cursus (common core):
 * libft
 * ft_printf
 * get_next_line
@@ -8,4 +8,3 @@ The following projects were developed during 42 school's cursus:
 * minishell
 * Philosophers
 * cub3d
-* Cpp Modules
