@@ -15,7 +15,7 @@ If the Julia set is chosen, you can specify two other parameters (complex number
 
 Notes: Tested on Linux.
 
-Bonus: included (color change abd arrows).
+Bonus: included (color change and arrows).
 
 ## Screenshots
 Mandelbrot Set
