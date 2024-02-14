@@ -1,1 +1,1 @@
-Projects developed at 42 Lisboa programming school.  
+The following projects were developed during 42 school's cursus.
