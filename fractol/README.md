@@ -1,6 +1,6 @@
 
 # Fractol
-Summary: Generation of fractals from the complex numbers of an iterative mathematical construct. A fractal is a fragmented geometrical figure that infinitely repeats itself at smaller scales. Introduciont to graphical projects, using uses the school's graphical library, MiniLibX.
+Generation of fractals from the complex numbers of an iterative mathematical construct. A fractal is a fragmented geometrical figure that infinitely repeats itself at smaller scales. Introduciont to graphical projects, using uses the school's graphical library, MiniLibX.
 
 ## Usage
 Execution: The type of the fractal has to be specified (whereas _options_ don't).
