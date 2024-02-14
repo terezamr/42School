@@ -7,3 +7,5 @@ This project consists in duplicate the behavior of the C function printf(). It m
 unsigned int type variables
 * hexadecimal int type variables (uppercase and lowercase)
 * pointer type variables
+
+Bonus: not included.
