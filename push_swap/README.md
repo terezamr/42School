@@ -2,7 +2,7 @@
 The goal of this program is to sort in ascending order a stack _a_, using a stack _b_ and several defined operations.
 
 ## Usage
-Execution: The program receives as arguments the numbers of the stack a.
+Execution: The program receives as arguments the numbers of the stack a. It prints the operations called by the sorting algorithm.
 
 ```shell
 ./push_swap <n>
